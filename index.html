@@ -1,31 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Resume</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manikandan RM — Interactive Resume</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
-    h1 { text-align: center; }
-    .section { margin-bottom: 20px; }
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:linear-gradient(180deg,#061021 0%,#071421 100%); color:#e6eef8; line-height:1.45}
+    .container{max-width:1000px;margin:36px auto;padding:28px;border-radius:14px;background:linear-gradient(180deg,var(--card), rgba(8,12,18,0.6));box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:110px;height:110px;border-radius:18px;background:linear-gradient(135deg,var(--accent),#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:34px;color:white}
+    h1{margin:0;font-size:26px}
+    .sub{color:var(--muted);margin-top:6px;font-size:13px}
+    .contact{margin-left:auto;text-align:right}
+    .pill{display:inline-block;background:var(--glass);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);margin-left:6px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:22px}
+    .card{background:linear-gradient(180deg,var(--glass),var(--glass-2));padding:18px;border-radius:12px}
+    .section-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .section-title h2{margin:0;font-size:16px}
+    .skill{margin-bottom:10px}
+    .bar{height:10px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden}
+    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#06b6d4);width:0%;border-radius:999px;transition:width 800ms cubic-bezier(.2,.9,.3,1)}
+    .timeline{display:flex;flex-direction:column;gap:14px}
+    .item{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .item h3{margin:0;font-size:15px}
+    .meta{color:var(--muted);font-size:13px;margin-top:6px}
+    ul.skills-list{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+    ul.skills-list li{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;font-size:13px;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center}
+    button{background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;cursor:pointer}
+    .cta{background:var(--accent);border:none;padding:10px 14px;color:white;border-radius:9px;cursor:pointer}
+    .download{display:inline-block;margin-top:12px}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    .tag{display:inline-block;background:rgba(255,255,255,0.025);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted);margin-right:6px}
+    /* responsive */
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}.contact{text-align:left;margin-left:0}}
   </style>
 </head>
 <body>
-  <h1>Your Name</h1>
-  <p><strong>Email:</strong> your.email@example.com | <strong>Phone:</strong> +91-1234567890</p>
-  <hr>
+  <div class="container" id="app">
+    <header>
+      <div class="avatar">MR</div>
+      <div>
+        <h1>Manikandan RM — <span style="font-weight:600;color:var(--muted);font-size:15px">Senior Software Engineer</span></h1>
+        <div class="sub">Software, ML Model Development & Design Engineer • Go, Python, C++ • AWS, Kubernetes, CI/CD</div>
+        <div style="margin-top:8px">
+          <span class="pill">Bengaluru, India</span>
+          <span class="pill">+91 90197 53255</span>
+          <span class="pill">maniramanathan@icloud.com</span>
+        </div>
+      </div>
+      <div class="contact">
+        <div class="controls">
+          <button id="themeToggle" title="Toggle theme">Toggle</button>
+          <button class="cta" id="downloadBtn">Download PDF</button>
+        </div>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">Available to relocate • Passport: India • DOB: 11-Apr-1995</div>
+      </div>
+    </header>
 
-  <div class="section">
-    <h2>Experience</h2>
-    <p><strong>Software Engineer</strong> – Company Name (2022–Present)</p>
-    <ul>
-      <li>Developed …</li>
-      <li>Worked on …</li>
-    </ul>
+    <div class="grid">
+      <div>
+        <div class="card">
+          <div class="section-title"><h2>About</h2></div>
+          <p style="color:var(--muted);margin-top:6px">With over seven years of experience, I am a passionate and experienced Software, ML Model Development & Design Engineer. I build scalable, high-performance backend systems and data-driven analytics solutions. Skilled across Go, Python, C++, AWS, Kubernetes, CI/CD and production ML pipelines.</p>
+
+          <hr style="opacity:0.06;margin:14px 0">
+
+          <div class="section-title"><h2>Core Skills</h2></div>
+          <ul class="skills-list">
+            <li>Backend Development</li>
+            <li>Machine Learning</li>
+            <li>Cloud Engineering</li>
+            <li>Infrastructure as Code</li>
+            <li>CI/CD & Automation</li>
+            <li>Telemetry & Monitoring</li>
+          </ul>
+
+          <div style="margin-top:12px">
+            <div class="skill"><strong>Go</strong>
+              <div class="bar"><i data-w="92"></i></div>
+            </div>
+            <div class="skill"><strong>Python</strong>
+              <div class="bar"><i data-w="90"></i></div>
+            </div>
+            <div class="skill"><strong>C++</strong>
+              <div class="bar"><i data-w="80"></i></div>
+            </div>
+            <div class="skill"><strong>AWS & Infra</strong>
+              <div class="bar"><i data-w="85"></i></div>
+            </div>
+            <div class="skill"><strong>Machine Learning</strong>
+              <div class="bar"><i data-w="78"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="section-title"><h2>Experience</h2></div>
+          <div class="timeline">
+            <div class="item">
+              <h3>CISCO — Software Engineer (G8) (Apr 2025 – Present)</h3>
+              <div class="meta">Machine Learning and AI — Business Analytics</div>
+              <p style="color:var(--muted);margin-top:8px">Developed predictive sales forecasting models improving forecast accuracy by 20%. Built interactive BI dashboards, automated data pipelines and data warehouse schemas to accelerate analytics and decision making.</p>
+              <div style="margin-top:8px"><span class="tag">Predictive Models</span><span class="tag">Data Pipelines</span><span class="tag">Dashboards</span></div>
+            </div>
+
+            <div class="item">
+              <h3>Umbrella Identities — Cloud Engineer (Oct 2022 – Apr 2025)</h3>
+              <div class="meta">Identity Management — R&D</div>
+              <p style="color:var(--muted);margin-top:8px">Engineered Go-based microservices, CI/CD pipelines in Jenkins, containerized deployments on AWS + Kubernetes. Automated testing using Python & Selenium and developed production debugging utilities.</p>
+              <div style="margin-top:8px"><span class="tag">Go</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span></div>
+            </div>
+
+            <div class="item">
+              <h3>Barracuda — Senior Software Engineer (May 2022 – Oct 2022)</h3>
+              <div class="meta">Email Security Gateway</div>
+              <p style="color:var(--muted);margin-top:8px">Designed C++ features for ESG, optimized CI/CD, implemented automated test frameworks and tooling to improve stability and delivery speed.</p>
+              <div style="margin-top:8px"><span class="tag">C++</span><span class="tag">Automation</span><span class="tag">Release Engineering</span></div>
+            </div>
+
+            <div class="item">
+              <h3>RSA Security — Software Engineer / QE (2017 – 2021)</h3>
+              <div class="meta">NetWitness XDR</div>
+              <p style="color:var(--muted);margin-top:8px">Built high-performance C++ features handling 30k EPS, automated testing, and created tooling that reduced install time from 6+ hours to 28 minutes.</p>
+              <div style="margin-top:8px"><span class="tag">Performance</span><span class="tag">Automation</span><span class="tag">Tooling</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="section-title"><h2>Education</h2></div>
+          <div class="item">
+            <h3>M.Tech — Embedded Systems, Amrita University (2016–2018) — 9.40 (Silver Medalist)</h3>
+            <div class="meta">Amrita School of Engineering</div>
+          </div>
+          <div class="item" style="margin-top:10px">
+            <h3>B.E — Electronics & Communication, Anna University (2012–2016) — 8.01</h3>
+            <div class="meta">Tamilnadu College of Engineering</div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <div class="section-title"><h2>Highlights</h2></div>
+          <ul style="padding-left:18px;color:var(--muted);">
+            <li>7+ years experience in software & ML engineering</li>
+            <li>3+ years focused on ML</li>
+            <li>103K+ lines coded • 10+ awards & recognitions</li>
+            <li>SOC2 & FedRAMP compliance experience</li>
+            <li>On-call across 23 global data centers</li>
+          </ul>
+
+          <div style="margin-top:12px" class="section-title"><h2>Tools & Tech</h2></div>
+          <ul class="skills-list">
+            <li>Go</li><li>Python</li><li>C++</li><li>AWS</li><li>Kubernetes</li><li>CI/CD (Jenkins)</li><li>Terraform</li><li>Docker</li>
+          </ul>
+
+          <div style="margin-top:12px" class="section-title"><h2>Personal</h2></div>
+          <p style="color:var(--muted);font-size:14px">Nationality: India<br>Languages: English, Tamil, Hindi, Kannada<br>Willing to relocate</p>
+
+          <div style="margin-top:14px" class="section-title"><h2>Quick Actions</h2></div>
+          <button id="compactBtn">Toggle Experience Compact</button>
+          <a class="download" href="resume.pdf" download><button style="width:100%;margin-top:8px">Download Original PDF</button></a>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="section-title"><h2>Contact & Links</h2></div>
+          <p style="color:var(--muted);font-size:14px">maniramanathan@icloud.com<br>+91 90197 53255<br>Bengaluru, India</p>
+          <div style="margin-top:8px"><a href="#" id="linkedin" style="color:var(--muted);text-decoration:none">LinkedIn (add link)</a></div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>Last updated: September 2025 • Built with ❤️</footer>
   </div>
 
-  <div class="section">
-    <h2>Education</h2>
-    <p>B.Tech in Computer Science – XYZ University, 2017–2021</p>
-  </div>
+  <script>
+  (function(){
+    'use strict';
+
+    function animateSkillBars(){
+      try{
+        var bars = document.querySelectorAll('.bar > i');
+        bars.forEach(function(el){
+          var w = el.getAttribute('data-w') || '60';
+          setTimeout(function(){ el.style.width = w + '%'; }, 120);
+        });
+      }catch(e){console.warn('Skill animation failed', e);}
+    }
+
+    function initCompactToggle(){
+      var compact = false;
+      var btn = document.getElementById('compactBtn');
+      if(!btn) return;
+      btn.addEventListener('click', function(){
+        compact = !compact;
+        var ps = document.querySelectorAll('.timeline .item p');
+        ps.forEach(function(p){ p.style.display = compact ? 'none' : 'block'; });
+      });
+    }
+
+    function initDownload(){
+      var btn = document.getElementById('downloadBtn');
+      if(!btn) return;
+      btn.addEventListener('click', function(){
+        // expects resume.pdf in the same folder/root
+        window.location.href = 'resume.pdf';
+      });
+    }
+
+    function initThemeToggle(){
+      var btn = document.getElementById('themeToggle');
+      if(!btn) return;
+      btn.addEventListener('click', function(){
+        alert('Theme toggle — currently in dark mode. Want a light mode? Tell me and I\'ll add it.');
+      });
+    }
+
+    function init(){
+      animateSkillBars();
+      initCompactToggle();
+      initDownload();
+      initThemeToggle();
+    }
+
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
+  })();
+  </script>
 </body>
 </html>
