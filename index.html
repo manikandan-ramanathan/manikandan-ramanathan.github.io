@@ -41,6 +41,17 @@
             visibility: visible;
             opacity: 1;
         }
+        .family-member-btn.active {
+            background-color: #e0e7ff; /* indigo-100 */
+            color: #312e81; /* indigo-900 */
+            font-weight: 600;
+        }
+        .family-details-panel {
+            display: none;
+        }
+        .family-details-panel.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -590,52 +601,97 @@
                 </div>
                 <div id="unlocked-content" class="hidden">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">Abstracted Information</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-8">
                         
-                        <!-- Professional & Health -->
-                        <div class="space-y-8">
-                            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-briefcase mr-3 text-blue-700"></i>Professional</h3>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Salary</p><p class="font-semibold text-gray-800">₹30,00,000 Per Annum</p></div>
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Location</p><p class="font-semibold text-gray-800">Bengaluru, India</p></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Professional & Health -->
+                            <div class="space-y-8">
+                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-briefcase mr-3 text-blue-700"></i>Professional</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Salary</p><p class="font-semibold text-gray-800">₹30,00,000 Per Annum</p></div>
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Location</p><p class="font-semibold text-gray-800">Bengaluru, India</p></div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                     <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-heartbeat mr-3 text-blue-700"></i>Health</h3>
+                                     <div class="space-y-3">
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HIV</p><p class="font-semibold text-green-600">Negative</p></div>
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">VDRL</p><p class="font-semibold text-green-600">Negative</p></div>
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HBsAg</p><p class="font-semibold text-green-600">Negative</p></div>
+                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Hepatitis</p><p class="font-semibold text-green-600">Negative</p></div>
+                                    </div>
+                                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                                        <div class="relative inline-block info-card">
+                                            <i class="fas fa-info-circle text-gray-400 cursor-pointer"></i>
+                                            <div class="info-tooltip absolute bottom-full left-0 mb-2 w-60 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>As a divorcee, it feels morally responsible to show the STD results for the safety of a future partner.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                                        </div>
+                                        <a href="report.pdf" target="_blank" class="inline-flex items-center text-sm font-medium text-blue-700 hover:underline">View Report <i class="fas fa-external-link-alt ml-2"></i></a>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Native Details -->
                             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-heartbeat mr-3 text-blue-700"></i>Health</h3>
-                                 <div class="space-y-3">
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HIV</p><p class="font-semibold text-green-600">Negative</p></div>
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">VDRL</p><p class="font-semibold text-green-600">Negative</p></div>
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HBsAg</p><p class="font-semibold text-green-600">Negative</p></div>
-                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Hepatitis</p><p class="font-semibold text-green-600">Negative</p></div>
-                                </div>
-                                <div class="mt-4 pt-4 border-t flex justify-between items-center">
-                                    <div class="relative inline-block info-card">
-                                        <i class="fas fa-info-circle text-gray-400 cursor-pointer"></i>
-                                        <div class="info-tooltip absolute bottom-full left-0 mb-2 w-60 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>As a divorcee, it feels morally responsible to show the STD results for the safety of a future partner.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
-                                    </div>
-                                    <a href="report.pdf" target="_blank" class="inline-flex items-center text-sm font-medium text-blue-700 hover:underline">View Report <i class="fas fa-external-link-alt ml-2"></i></a>
-                                </div>
+                                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-gopuram mr-3 text-blue-700"></i>Native Details</h3>
+                                 <div class="space-y-4 text-sm">
+                                    <div class="flex"><p class="w-1/2 text-gray-500">Native</p><p class="w-1/2 font-semibold text-gray-800">Devakottai</p></div>
+                                    <div class="flex"><p class="w-1/2 text-gray-500">Temple</p><p class="w-1/2 font-semibold text-gray-800">Pillaiyarpatti</p></div>
+                                    <hr>
+                                    <div class="flex"><p class="w-1/2 text-gray-500">Father's Name</p><p class="w-1/2 font-semibold text-gray-800">Ramanathan V</p></div>
+                                    <div class="flex"><p class="w-1/2 text-gray-500">Mother's Name</p><p class="w-1/2 font-semibold text-gray-800">Alamelu Rm</p></div>
+                                    <hr>
+                                    <div class="flex"><p class="w-1/2 text-gray-500">House Vilasam</p><p class="w-1/2 font-semibold text-gray-800">V.N.C.Rm House</p></div>
+                                    <div class="flex"><p class="w-1/2 text-gray-500">House Name</p><p class="w-1/2 font-semibold text-gray-800">Seigon Chinniah Chettiar Veedu</p></div>
+                                 </div>
                             </div>
                         </div>
-
-                        <!-- Native Details -->
+                        
+                        <!-- Immediate Family -->
                         <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                             <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-gopuram mr-3 text-blue-700"></i>Native Details</h3>
-                             <div class="space-y-4 text-sm">
-                                <div class="flex"><p class="w-1/2 text-gray-500">Native</p><p class="w-1/2 font-semibold text-gray-800">Devakottai</p></div>
-                                <div class="flex"><p class="w-1/2 text-gray-500">Temple</p><p class="w-1/2 font-semibold text-gray-800">Pillaiyarpatti</p></div>
-                                <hr>
-                                <div class="flex"><p class="w-1/2 text-gray-500">Father's Name</p><p class="w-1/2 font-semibold text-gray-800">Ramanathan V</p></div>
-                                <div class="flex"><p class="w-1/2 text-gray-500">Mother's Name</p><p class="w-1/2 font-semibold text-gray-800">Alamelu Rm</p></div>
-                                <hr>
-                                <div class="flex"><p class="w-1/2 text-gray-500">House Vilasam</p><p class="w-1/2 font-semibold text-gray-800">V.N.C.Rm House</p></div>
-                                <div class="flex"><p class="w-1/2 text-gray-500">House Name</p><p class="w-1/2 font-semibold text-gray-800">Seigon Chinniah Chettiar Veedu</p></div>
-                                 <hr>
-                                <div class="flex"><p class="w-1/2 text-gray-500">Paternal Grandparents</p><p class="w-1/2 font-semibold text-gray-800">Thiru Rm Viswanathan & Late Tmt. V Visalakshi</p></div>
-                                <div class="flex"><p class="w-1/2 text-gray-500">Maternal Grandparents</p><p class="w-1/2 font-semibold text-gray-800">Late Thiru Rm Palaniappan & Late Tmt Pl Umayal</p></div>
-
-                             </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-users mr-3 text-blue-700"></i>Immediate Family</h3>
+                            <div class="flex gap-6">
+                                <div class="w-1/3">
+                                    <div class="space-y-2">
+                                        <button class="family-member-btn active w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-ramanathan">Ramanathan</button>
+                                        <button class="family-member-btn w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-alamelu">Alamelu</button>
+                                        <button class="family-member-btn w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-ganesh">Ganesh Laxman</button>
+                                    </div>
+                                </div>
+                                <div class="w-2/3">
+                                    <div id="family-ramanathan" class="family-details-panel active p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
+                                        <h4 class="font-bold text-gray-800">Ramanathan</h4>
+                                        <p class="text-xs text-gray-500 mb-3">Father</p>
+                                        <div class="space-y-2 text-sm">
+                                            <p><strong class="font-medium text-gray-600">Position:</strong> General Manager</p>
+                                            <p><strong class="font-medium text-gray-600">Organization:</strong> Bhuvaneshwari CotSpin</p>
+                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Kangeyam,Tamilnadu,India" target="_blank" class="text-blue-600 hover:underline">Kangeyam, Tamilnadu</a></p>
+                                            <p><strong class="font-medium text-gray-600">Phone:</strong> <a href="tel:+919790427072" class="text-blue-600 hover:underline">+91 9790427072</a></p>
+                                            <p><strong class="font-medium text-gray-600">Vagai:</strong> Chellanchetty</p>
+                                        </div>
+                                    </div>
+                                    <div id="family-alamelu" class="family-details-panel p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
+                                        <h4 class="font-bold text-gray-800">Alamelu</h4>
+                                        <p class="text-xs text-gray-500 mb-3">Mother</p>
+                                        <div class="space-y-2 text-sm">
+                                            <p><strong class="font-medium text-gray-600">Position:</strong> Home Maker</p>
+                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Kangeyam,Tamilnadu,India" target="_blank" class="text-blue-600 hover:underline">Kangeyam, Tamilnadu</a></p>
+                                            <p><strong class="font-medium text-gray-600">Phone:</strong> <a href="tel:+919677480837" class="text-blue-600 hover:underline">+91 9677480837</a></p>
+                                            <p><strong class="font-medium text-gray-600">Native:</strong> Devakottai</p>
+                                            <p><strong class="font-medium text-gray-600">Paternal Temple:</strong> Nemam</p>
+                                            <p><strong class="font-medium text-gray-600">Vagai:</strong> Thi-na</p>
+                                        </div>
+                                    </div>
+                                     <div id="family-ganesh" class="family-details-panel p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
+                                        <h4 class="font-bold text-gray-800">Ganesh Laxman</h4>
+                                        <p class="text-xs text-gray-500 mb-3">Younger Brother</p>
+                                        <div class="space-y-2 text-sm">
+                                            <p><strong class="font-medium text-gray-600">Position:</strong> Design Engineer</p>
+                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Chennai" target="_blank" class="text-blue-600 hover:underline">Chennai, India</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -727,6 +783,26 @@
                 if (e.key === 'Enter') {
                     checkPasscode();
                 }
+            });
+
+            // Immediate Family Logic
+            const familyButtons = document.querySelectorAll('.family-member-btn');
+            const familyDetails = document.querySelectorAll('.family-details-panel');
+
+            familyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    familyButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const targetId = button.dataset.target;
+                    familyDetails.forEach(panel => {
+                        if (panel.id === targetId) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                });
             });
         });
     </script>
