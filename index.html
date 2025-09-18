@@ -137,6 +137,7 @@
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="projects">Projects</button>
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="honours">Exams & Honours</button>
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="personal">Personal</button>
+                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="abstracted">Abstracted Info</button>
                 </nav>
             </div>
         </div>
@@ -556,6 +557,91 @@
                     </div>
                  </div>
             </div>
+
+             <!-- Abstracted Section -->
+            <div id="abstracted" class="tab-content fade-in">
+                <div id="locked-content" class="relative">
+                    <!-- Blurred background content -->
+                    <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm blur-sm">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Abstracted Information</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-400 mb-4">Professional</h3>
+                                <div class="space-y-2"><p class="text-gray-400">Salary: ●●●●●●●</p><p class="text-gray-400">Location: ●●●●●●●</p></div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-400 mb-4">Health</h3>
+                                <div class="space-y-2"><p class="text-gray-400">HIV: ●●●●●●●</p><p class="text-gray-400">VDRL: ●●●●●●●</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Passcode entry form on top -->
+                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                        <div class="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border text-center">
+                            <i class="fas fa-lock text-3xl text-gray-600 mb-3"></i>
+                            <h3 class="font-semibold text-gray-800 mb-3">Enter Access Code</h3>
+                            <div class="flex gap-2">
+                                <input id="passcode-input" type="password" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="••••••••••">
+                                <button id="passcode-submit" class="px-4 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">Unlock</button>
+                            </div>
+                            <p id="error-message" class="text-red-600 text-xs mt-2 hidden">Wrong access code. Please try again.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="unlocked-content" class="hidden">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Abstracted Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- Professional & Health -->
+                        <div class="space-y-8">
+                            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-briefcase mr-3 text-blue-700"></i>Professional</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Salary</p><p class="font-semibold text-gray-800">₹30,00,000 Per Annum</p></div>
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Location</p><p class="font-semibold text-gray-800">Bengaluru, India</p></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-heartbeat mr-3 text-blue-700"></i>Health</h3>
+                                 <div class="space-y-3">
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HIV</p><p class="font-semibold text-green-600">Negative</p></div>
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">VDRL</p><p class="font-semibold text-green-600">Negative</p></div>
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HBsAg</p><p class="font-semibold text-green-600">Negative</p></div>
+                                    <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Hepatitis</p><p class="font-semibold text-green-600">Negative</p></div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                                    <div class="relative inline-block info-card">
+                                        <i class="fas fa-info-circle text-gray-400 cursor-pointer"></i>
+                                        <div class="info-tooltip absolute bottom-full left-0 mb-2 w-60 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>As a divorcee, it feels morally responsible to show the STD results for the safety of a future partner.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                                    </div>
+                                    <a href="report.pdf" target="_blank" class="inline-flex items-center text-sm font-medium text-blue-700 hover:underline">View Report <i class="fas fa-external-link-alt ml-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Native Details -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                             <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-gopuram mr-3 text-blue-700"></i>Native Details</h3>
+                             <div class="space-y-4 text-sm">
+                                <div class="flex"><p class="w-1/2 text-gray-500">Native</p><p class="w-1/2 font-semibold text-gray-800">Devakottai</p></div>
+                                <div class="flex"><p class="w-1/2 text-gray-500">Temple</p><p class="w-1/2 font-semibold text-gray-800">Pillaiyarpatti</p></div>
+                                <hr>
+                                <div class="flex"><p class="w-1/2 text-gray-500">Father's Name</p><p class="w-1/2 font-semibold text-gray-800">Ramanathan V</p></div>
+                                <div class="flex"><p class="w-1/2 text-gray-500">Mother's Name</p><p class="w-1/2 font-semibold text-gray-800">Alamelu Rm</p></div>
+                                <hr>
+                                <div class="flex"><p class="w-1/2 text-gray-500">House Vilasam</p><p class="w-1/2 font-semibold text-gray-800">V.N.C.Rm House</p></div>
+                                <div class="flex"><p class="w-1/2 text-gray-500">House Name</p><p class="w-1/2 font-semibold text-gray-800">Seigon Chinniah Chettiar Veedu</p></div>
+                                 <hr>
+                                <div class="flex"><p class="w-1/2 text-gray-500">Paternal Grandparents</p><p class="w-1/2 font-semibold text-gray-800">Thiru Rm Viswanathan & Late Tmt. V Visalakshi</p></div>
+                                <div class="flex"><p class="w-1/2 text-gray-500">Maternal Grandparents</p><p class="w-1/2 font-semibold text-gray-800">Late Thiru Rm Palaniappan & Late Tmt Pl Umayal</p></div>
+
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </main>
 
         <!-- Footer -->
@@ -565,58 +651,85 @@
     </div>
     
     <script>
-        const tabs = document.querySelectorAll('.tab-button');
-        const contents = document.querySelectorAll('.tab-content');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = document.getElementById(tab.dataset.tab);
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = document.getElementById(tab.dataset.tab);
 
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
 
-                contents.forEach(c => c.classList.remove('active', 'visible'));
-                
-                target.classList.add('active');
-                // Timeout to allow the display property to change before adding the visible class for the transition
-                setTimeout(() => {
-                    target.classList.add('visible');
-                }, 50);
+                    contents.forEach(c => c.classList.remove('active', 'visible'));
+                    
+                    target.classList.add('active');
+                    // Timeout to allow the display property to change before adding the visible class for the transition
+                    setTimeout(() => {
+                        target.classList.add('visible');
+                    }, 50);
+                });
+            });
+            
+            // Simple fade-in animation on scroll for initial load
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // Calculate and display age
+            function calculateAge() {
+                const birthDate = new Date('1995-04-11');
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                const ageTooltip = document.getElementById('age-tooltip');
+                if(ageTooltip) {
+                    ageTooltip.innerHTML = `<p>${age} years old</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>`;
+                }
+            }
+            calculateAge();
+
+            // Passcode logic
+            const passcodeButton = document.getElementById('passcode-submit');
+            const passcodeInput = document.getElementById('passcode-input');
+            const lockedContent = document.getElementById('locked-content');
+            const unlockedContent = document.getElementById('unlocked-content');
+            const errorMessage = document.getElementById('error-message');
+            const correctPasscode = "9677480837";
+
+            const checkPasscode = () => {
+                if (passcodeInput.value === correctPasscode) {
+                    lockedContent.style.display = 'none';
+                    unlockedContent.classList.remove('hidden');
+                } else {
+                    errorMessage.classList.remove('hidden');
+                    passcodeInput.value = '';
+                    passcodeInput.focus();
+                }
+            };
+
+            passcodeButton.addEventListener('click', checkPasscode);
+            passcodeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPasscode();
+                }
             });
         });
-        
-        // Simple fade-in animation on scroll for initial load
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('visible');
-                appearOnScroll.unobserve(entry.target);
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-
-        // Calculate and display age
-        function calculateAge() {
-            const birthDate = new Date('1995-04-11');
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            const ageTooltip = document.getElementById('age-tooltip');
-            if(ageTooltip) {
-                ageTooltip.innerHTML = `<p>${age} years old</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>`;
-            }
-        }
-        window.addEventListener('DOMContentLoaded', calculateAge);
     </script>
 </body>
 </html>
-"
 
