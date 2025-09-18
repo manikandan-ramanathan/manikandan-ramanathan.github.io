@@ -32,12 +32,12 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .strength-card .strength-tooltip {
+        .info-card .info-tooltip {
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s, visibility 0.3s;
         }
-        .strength-card:hover .strength-tooltip {
+        .info-card:hover .info-tooltip {
             visibility: visible;
             opacity: 1;
         }
@@ -52,8 +52,14 @@
                 <h1 class="text-4xl font-bold text-gray-800">Manikandan Ramanathan</h1>
                 <p class="text-md text-blue-800 font-medium mt-1">Senior Software Engineer | ML & Cloud</p>
                 <div class="flex items-center flex-wrap gap-x-4 gap-y-2 text-gray-500 mt-3 text-sm">
-                    <a href="mailto:maniramanathan@icloud.com" class="hover:text-blue-800 flex items-center"><i class="fas fa-envelope mr-2"></i>maniramanathan@icloud.com</a>
-                    <span class="flex items-center"><i class="fas fa-phone mr-2"></i>+91 90197 53255</span>
+                    <div class="relative inline-block info-card">
+                        <a href="mailto:maniramanathan@icloud.com" class="hover:text-blue-800 flex items-center"><i class="fas fa-envelope mr-2"></i>maniramanathan@icloud.com</a>
+                        <div class="info-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none">
+                            <p>Response might take a day to 2 days.</p>
+                            <svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>
+                        </div>
+                    </div>
+                    <a href="tel:+919019753255" class="hover:text-blue-800 flex items-center"><i class="fas fa-phone mr-2"></i>+91 90197 53255</a>
                     <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i>Bengaluru, India</span>
                 </div>
                  <div class="flex items-center space-x-3 mt-4">
@@ -109,6 +115,14 @@
             </div>
         </div>
 
+        <!-- About Me Section -->
+        <div class="mb-10">
+             <p class="text-base text-center leading-relaxed bg-white p-6 rounded-lg border border-gray-200 shadow-sm max-w-4xl mx-auto">
+                With over seven years of experience, I am a passionate Software and ML Model Development & Design Engineer. My expertise lies in building and maintaining scalable, reliable, and high-performance systems. Proficient in Go, Python, and C++, I have a strong background in developing robust backend services, optimizing cloud infrastructure on AWS, and managing Kubernetes environments. I have a proven ability to enhance system efficiency through CI/CD automation, diligent monitoring, effective on-call issue resolution, and a hands-on approach to debugging.
+            </p>
+        </div>
+
+
         <!-- Interactive Tabs -->
         <div class="mb-8">
             <div class="border-b border-gray-200">
@@ -131,59 +145,131 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="lg:col-span-2">
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">Work Experience</h2>
-                        <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:w-0.5 before:bg-gray-200">
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">Apr 2025 - Present</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Software Engineer (G8)</h3>
-                                    <p class="font-medium text-gray-600 text-sm">Cisco - Machine Learning & AI</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Developed a sales forecasting ML model improving accuracy by over 20%.</li><li>Engineered BI dashboards leading to a 15% increase in cross-selling.</li><li>Built automated data pipelines to identify top-performing products.</li><li>Designed data warehouse schemas to reduce query times and improve analytics.</li></ul>
+                        <div class="space-y-8">
+
+                            <!-- Experience Item -->
+                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                    <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Apr 2025 - Present</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer (G8)</h3>
+                                        <p class="font-medium text-gray-600 text-sm">Cisco - Machine Learning & AI</p>
+                                        <p class="text-sm text-gray-600 mt-2">A data-driven Software Engineer specializing in sales analytics and business intelligence. My work involves creating predictive models and interactive dashboards that transform raw sales data into actionable insights, directly influencing strategic planning.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Developed a machine learning model for predictive sales forecasting, improving accuracy by over 20%.</li>
+                                            <li>Engineered BI dashboards that provided real-time insights, leading to a 15% increase in cross-selling opportunities.</li>
+                                            <li>Built automated data pipelines to identify top-performing products, contributing to strategic sales decisions.</li>
+                                            <li>Designed and maintained data warehouse schemas, reducing query times for sales reporting.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">Oct 2022 - Apr 2025</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Cloud Engineer (G6)</h3>
-                                    <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Identities Management</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Engineered Go-based microservices for identity management achieving 100% SLA.</li><li>Deployed and managed containerized applications on AWS using Kubernetes.</li><li>Architected robust CI/CD pipelines with Jenkins for automation.</li><li>Automated testing frameworks with Python/Selenium and developed debugging utilities.</li></ul>
+                            
+                            <!-- Experience Item -->
+                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Oct 2022 - Apr 2025</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Cloud Engineer (G6)</h3>
+                                        <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Identities Management</p>
+                                        <p class="text-sm text-gray-600 mt-2">Specialized in developing high-performance, Go-based identity management services, ensuring 100% accuracy and SLA compliance. Enhanced the development lifecycle by automating testing, managing CI/CD pipelines, and deploying optimized applications with Kubernetes on AWS.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Engineered Go-based microservices for identity management, achieving 100% SLA compliance.</li>
+                                            <li>Deployed and optimized containerized applications on AWS using Kubernetes and Docker.</li>
+                                            <li>Architected and managed robust CI/CD pipelines with Jenkins for automated builds and deployments.</li>
+                                            <li>Developed custom utilities in Python, Shell, and C++ to streamline debugging and production simulations.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">May 2022 - Oct 2022</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Senior Software Engineer</h3>
-                                    <p class="font-medium text-gray-600 text-sm">Barracuda - Email Security Gateway</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Engineered and enhanced critical C++ features for the ESG product.</li><li>Redesigned CI/CD pipelines using Jenkins for full automation.</li><li>Improved product stability by debugging complex defects with GDB.</li><li>Resolved critical customer issues by delivering timely hot-fixes.</li></ul>
+
+                             <!-- Experience Item -->
+                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">May 2022 - Oct 2022</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Senior Software Engineer</h3>
+                                        <p class="font-medium text-gray-600 text-sm">Barracuda - Email Security Gateway</p>
+                                        <p class="text-sm text-gray-600 mt-2">Focused on enhancing product value and system reliability by developing critical features, optimizing the CI/CD pipeline, automating workflows, and resolving customer escalations to improve product stability and performance.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Engineered and enhanced critical C++ features for the Email Security Gateway (ESG) product.</li>
+                                            <li>Redesigned CI/CD pipelines using Jenkins to enable continuous integration and accelerated feature delivery.</li>
+                                            <li>Improved product stability by debugging complex software defects with C++ and GDB.</li>
+                                            <li>Resolved critical customer issues by delivering timely hot-fixes and configuration changes.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">Jun 2021 - May 2022</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Software Engineer</h3>
-                                    <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Intelligent Proxy</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Engineered microservices in C++, Python, and Go, ensuring SOC2 & FedRAMP compliance.</li><li>Guaranteed high availability managing on-call across 23 global data centres.</li><li>Designed load testing frameworks to assess and improve infrastructure performance.</li><li>Optimized infrastructure by eliminating redundant service functionalities.</li></ul>
+                            
+                            <!-- Experience Item -->
+                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Jun 2021 - May 2022</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer</h3>
+                                        <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Intelligent Proxy</p>
+                                        <p class="text-sm text-gray-600 mt-2">Spearheaded the end-to-end deployment of an innovative product composed of diverse components. Established a robust global infrastructure in 23 data centers, ensuring seamless customer accessibility and continuous service availability.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Engineered microservices in C++, Python, and Go, ensuring SOC2 & FedRAMP compliance.</li>
+                                            <li>Architected Jenkins pipelines from the ground up to automate builds and deployments.</li>
+                                            <li>Established comprehensive monitoring solutions and custom load testing frameworks.</li>
+                                            <li>Guaranteed high availability by managing on-call responsibilities across 23 global data centres.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">Apr 2019 - Jun 2021</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Software Engineer (1 & 2)</h3>
-                                    <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Engineered C++ features for threat detection, processing 30,000 EPS.</li><li>Delivered critical hot-fixes for high-priority customer escalations.</li><li>Automated debugging tools, significantly reducing analysis time.</li><li>Conducted rigorous performance and reliability testing to ensure quality.</li></ul>
+                            
+                             <!-- Experience Item -->
+                             <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Apr 2019 - Jun 2021</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer (1 & 2)</h3>
+                                        <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
+                                        <p class="text-sm text-gray-600 mt-2">Developed high-performance features in C++, capable of processing 30,000 events per second. My role involved automating debugging processes, resolving customer escalations with hot fixes, and enhancing system reliability in a DevOps environment.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Engineered core C++ features for real-time threat detection, achieving 30,000 EPS performance.</li>
+                                            <li>Automated debugging and data collection tools, significantly reducing analysis time.</li>
+                                            <li>Delivered critical hot-fixes to resolve high-priority customer escalations.</li>
+                                            <li>Conducted rigorous functional, performance, and reliability testing to ensure quality.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="absolute w-5 h-5 bg-blue-800 rounded-full left-5 -ml-2.5 mt-1.5 border-4 border-white"></div>
-                                <div class="pl-12">
-                                    <p class="text-sm font-semibold text-gray-500">Aug 2018 - Apr 2019</p>
-                                    <h3 class="text-lg font-semibold text-gray-800 mt-1">Software Quality Engineer 1</h3>
-                                    <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
-                                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-2"><li>Reduced product installation time from 6+ hours to 28 minutes.</li><li>Built Python and Ruby tools for test data generation.</li><li>Streamlined the entire testing workflow by automating build installation.</li><li>Collaborated with development teams to ensure prompt defect resolution.</li></ul>
+                            
+                             <!-- Experience Item -->
+                             <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
+                                <div class="md:w-1/4 text-left md:text-right">
+                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Aug 2018 - Apr 2019</span>
+                                </div>
+                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
+                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">Software Quality Engineer 1</h3>
+                                        <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
+                                        <p class="text-sm text-gray-600 mt-2">Focused on ensuring high-quality software releases by creating automated test cases and developing custom tools to streamline testing processes, driving test automation, and leading defect resolution with development teams.</p>
+                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
+                                            <li>Pioneered an automation tool that reduced product installation time from over 6 hours to just 28 minutes.</li>
+                                            <li>Built Python and Ruby tools for test data generation and resource management.</li>
+                                            <li>Streamlined the entire testing workflow by automating build downloading, installation, and test execution.</li>
+                                            <li>Actively participated in sprint meetings to define testing requirements for new features.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +279,7 @@
                         <div class="space-y-6">
                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"Mani is a hardworking, diligent, and committed individual. He has a great work ethic and is always ready to take on challenges... His documentation work is extremely detailed and very descriptive."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Avaneesh Vyas</p><p class="text-right text-xs text-gray-500">Engineering Lead, Scrut Automation</p></div>
                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"What amazed me interacting with Mani was he had the passion to explore unknown areas... I found Mani very hard working, curious and able to explore different areas. He is a very good asset to any team."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Biju Vasudevan</p><p class="text-right text-xs text-gray-500">Principal PM, ZScalar</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"I worked with Manikandan for the 'Netwitness Endpoint' project and was consistently impressed by his meticulous approach. His attention to detail, proactive mindset, and excellent communication skills played a pivotal role in ensuring the successful delivery of our project."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Bharathiraja</p><p class="text-right text-xs text-gray-500">Engineer, Tesco</p></div>
                         </div>
                     </div>
                 </div>
@@ -208,7 +295,7 @@
                             <h3 class="text-3xl font-bold text-gray-500">M.Tech</h3>
                         </div>
                         <div class="md:col-span-8">
-                            <h4 class="font-semibold text-gray-800 text-lg">Master of Technology in Embedded Systems</h4>
+                            <h4 class="font-semibold text-gray-800 text-lg">Master of Technology in Embedded Systems <i class="fas fa-medal text-yellow-500" title="Silver Medalist"></i></h4>
                             <a href="http://www.amrita.edu" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-blue-700 hover:underline">Amrita University</a>
                             <p class="mt-1"><span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">2016 - 2018</span></p>
                         </div>
@@ -276,25 +363,25 @@
                 <div class="mt-8">
                     <h3 class="font-bold text-lg text-gray-800 mb-4 text-center">Strengths</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
                             <i class="fas fa-lightbulb text-2xl text-blue-700 mb-2"></i>
                             <h4 class="font-semibold text-gray-800">Problem Solving</h4>
-                            <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Developed solutions for complex problems resulting in a 30% increase in efficiency.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                            <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Developed solutions for complex problems resulting in a 30% increase in efficiency.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
                         </div>
-                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
                              <i class="fas fa-search text-2xl text-blue-700 mb-2"></i>
                             <h4 class="font-semibold text-gray-800">Attention to Detail</h4>
-                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Implemented rigorous testing methodologies resulting in 99% bug-free code.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Implemented rigorous testing methodologies resulting in 99% bug-free code.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
                         </div>
-                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
                              <i class="fas fa-users text-2xl text-blue-700 mb-2"></i>
                             <h4 class="font-semibold text-gray-800">Teamwork</h4>
-                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Collaborated with cross-functional teams on successful project completions within deadlines.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Collaborated with cross-functional teams on successful project completions within deadlines.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
                         </div>
-                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
                             <i class="fas fa-cogs text-2xl text-blue-700 mb-2"></i>
                             <h4 class="font-semibold text-gray-800">Adaptability</h4>
-                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Seamlessly adjusted to new challenges and contributed effectively to projects' success.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Seamlessly adjusted to new challenges and contributed effectively to projects' success.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
                         </div>
                     </div>
                 </div>
@@ -308,13 +395,34 @@
                         <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Projects</h3>
                         <div class="space-y-4">
                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">Intelligent Self-Healing Network</h4><p class="text-sm text-gray-600">Developed a dissertation on improving network security using SDN to identify and mitigate attacks, focusing on IoT and large-scale networks.</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">Intelligent Braking System for Automobiles</h4><p class="text-sm text-gray-600">Analyzed issues in current braking systems and proposed a wet load distribution method to modify momentum and improve braking ability.</p>
+                                <h4 class="font-semibold">Real-time Traffic Sign Recognition</h4>
+                                <p class="text-sm text-gray-600 mt-1">Developed a deep learning model for real-time traffic sign detection and classification from video streams, designed for autonomous driving systems. Achieved 98.5% accuracy on a custom dataset.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Python</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">TensorFlow</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">OpenCV</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Computer Vision</span>
+                                </div>
                             </div>
                              <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">Protocol for Wireless Data & Power Transmission</h4><p class="text-sm text-gray-600">Focused on transferring power and data via a common medium for charging electronics while providing connectivity.</p>
+                                <h4 class="font-semibold">IoT-Based Smart Agriculture System</h4>
+                                <p class="text-sm text-gray-600 mt-1">Designed and built an end-to-end IoT system using ESP32 microcontrollers to monitor soil moisture and temperature. Data is sent to an AWS IoT Core backend for analysis and automated irrigation control.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Embedded C++</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">ESP32</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">MQTT</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">AWS IoT</span>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-semibold">Intelligent Self-Healing Network</h4>
+                                <p class="text-sm text-gray-600 mt-1">Dissertation on improving network security using SDN to identify and mitigate attacks, focusing on IoT and large-scale networks.</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">SDN</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Python</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">IoT</span>
+                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Network Security</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -334,38 +442,116 @@
             <div id="honours" class="tab-content fade-in">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Exams, Honours & Achievements</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Awards & Honours</h3>
-                        <ul class="list-disc list-inside bg-white p-4 rounded-lg border border-gray-200 shadow-sm space-y-2 text-sm text-gray-700">
-                            <li><strong>Presidential Award Nominee</strong> for performance as SQE-1 at RSA Security, 2019.</li>
-                            <li><strong>Silver Medalist</strong> for Academic Excellence, Amrita University, 2018.</li>
-                            <li><strong>Proficiency Award Winner</strong> for Academic Excellence, Amrita University, 2017.</li>
-                            <li>Qualified <strong>GATE 2016</strong> with 92 Percentile.</li>
-                            <li>Over <strong>10+ recognitions</strong> across various organizations (2018-2022).</li>
-                        </ul>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Awards & Honours</h3>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-award text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Presidential Award Nominee</h4>
+                                <p class="text-xs text-gray-500">RSA Security, 2019</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-medal text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Silver Medalist</h4>
+                                <p class="text-xs text-gray-500">Amrita University, 2018</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-star text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Proficiency Award</h4>
+                                <p class="text-xs text-gray-500">Amrita University, 2017</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-graduation-cap text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">GATE 2016 Qualified</h4>
+                                <p class="text-xs text-gray-500">92nd Percentile</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Achievements</h3>
-                        <ul class="list-disc list-inside bg-white p-4 rounded-lg border border-gray-200 shadow-sm space-y-2 text-sm text-gray-700">
-                             <li><strong>Infrastructure Uptime:</strong> Maintained 99.999% uptime for main systems with a robust disaster recovery plan.</li>
-                             <li><strong>Escalation Engineering:</strong> Reduced average Time-To-Resolution from 20 days to under 15, handling over 50% of cases.</li>
-                             <li><strong>Debugging Automation:</strong> Reduced analysis and debugging time by over 30% by developing data and database analysis tools.</li>
-                             <li><strong>Quality Engineering:</strong> Identified and raised over 100 functional issues using rigorous testing methodologies.</li>
-                        </ul>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Key Achievements</h3>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-server text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Infrastructure Uptime</h4>
+                                <p class="text-xs text-gray-500">Maintained 99.999% uptime with DR</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-headset text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Escalation Engineering</h4>
+                                <p class="text-xs text-gray-500">Reduced TTR from 20 to &lt;15 days</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-cogs text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Debugging Automation</h4>
+                                <p class="text-xs text-gray-500">Reduced analysis time by over 30%</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <i class="fas fa-check-circle text-blue-600 text-2xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Quality Engineering</h4>
+                                <p class="text-xs text-gray-500">Identified 100+ functional issues</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Personal Section -->
             <div id="personal" class="tab-content fade-in">
-                <div class="grid grid-cols-1">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">About Me</h2>
-                        <p class="text-base leading-relaxed bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                            With over seven years of experience, I am a passionate Software and ML Model Development & Design Engineer. My expertise lies in building and maintaining scalable, reliable, and high-performance systems. Proficient in Go, Python, and C++, I have a strong background in developing robust backend services, optimizing cloud infrastructure on AWS, and managing Kubernetes environments. I have a proven ability to enhance system efficiency through CI/CD automation, diligent monitoring, effective on-call issue resolution, and a hands-on approach to debugging.
-                        </p>
+                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Personal Details</h2>
+                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Name</p>
+                        <h4 class="font-semibold text-gray-800 truncate">Manikandan Ramanathan</h4>
                     </div>
-                </div>
+                     <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Alternative Legal Name</p>
+                        <h4 class="font-semibold text-gray-800">Manikandan Rm</h4>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Marital Status</p>
+                        <h4 class="font-semibold text-gray-800">Divorced</h4>
+                    </div>
+                    <div class="info-card relative bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200 cursor-pointer">
+                         <p class="text-sm text-gray-500">Date of Birth</p>
+                         <h4 class="font-semibold text-gray-800">11-April-1995</h4>
+                         <div id="age-tooltip" class="info-tooltip absolute bottom-full mb-2 w-auto bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none">
+                            <!-- Age will be inserted here by JS -->
+                         </div>
+                    </div>
+                     <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Current Location</p>
+                        <h4 class="font-semibold text-gray-800">Bengaluru, India</h4>
+                    </div>
+                     <div class="info-card relative bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200 cursor-pointer">
+                        <p class="text-sm text-gray-500">Relocation</p>
+                        <h4 class="font-semibold text-gray-800">Yes</h4>
+                        <div class="info-tooltip absolute bottom-full mb-2 w-max bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Happy to relocate. Might need sponsorship for Visa.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Nationality</p>
+                        <h4 class="font-semibold text-gray-800">India</h4>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Passport</p>
+                        <h4 class="font-semibold text-gray-800">Available</h4>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                        <p class="text-sm text-gray-500">Work Permit</p>
+                        <h4 class="font-semibold text-gray-800">India by Citizenship</h4>
+                    </div>
+                 </div>
             </div>
         </main>
 
@@ -410,6 +596,22 @@
         faders.forEach(fader => {
             appearOnScroll.observe(fader);
         });
+
+        // Calculate and display age
+        function calculateAge() {
+            const birthDate = new Date('1995-04-11');
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            const ageTooltip = document.getElementById('age-tooltip');
+            if(ageTooltip) {
+                ageTooltip.innerHTML = `<p>${age} years old</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>`;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', calculateAge);
     </script>
 </body>
 </html>
