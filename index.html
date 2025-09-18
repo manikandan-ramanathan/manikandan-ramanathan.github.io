@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manikandan RM - Senior Software Engineer</title>
+    <title>Manikandan Ramanathan - Senior Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,6 +32,15 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .strength-card .strength-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .strength-card:hover .strength-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -40,12 +49,26 @@
         <!-- Header Section -->
         <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-gray-200">
             <div>
-                <h1 class="text-4xl font-bold text-gray-800">Manikandan RM</h1>
+                <h1 class="text-4xl font-bold text-gray-800">Manikandan Ramanathan</h1>
                 <p class="text-md text-blue-800 font-medium mt-1">Senior Software Engineer | ML & Cloud</p>
                 <div class="flex items-center flex-wrap gap-x-4 gap-y-2 text-gray-500 mt-3 text-sm">
                     <a href="mailto:maniramanathan@icloud.com" class="hover:text-blue-800 flex items-center"><i class="fas fa-envelope mr-2"></i>maniramanathan@icloud.com</a>
                     <span class="flex items-center"><i class="fas fa-phone mr-2"></i>+91 90197 53255</span>
                     <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i>Bengaluru, India</span>
+                </div>
+                 <div class="flex items-center space-x-3 mt-4">
+                    <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-blue-700 hover:bg-blue-800 transition-colors" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/manikandan.ramanathan.2025" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/manikandan_ramanathan/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-gradient-to-br from-purple-600 to-pink-500 hover:opacity-90 transition-opacity" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/maniramanathn" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-gray-800 hover:bg-black transition-colors" aria-label="X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
                 </div>
             </div>
             <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="mt-4 sm:mt-0 inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-900 transition duration-300">
@@ -78,7 +101,8 @@
         <div class="mb-8">
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
-                    <button class="tab-button active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="professional">Professional</button>
+                    <button class="tab-button active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="experience">Experience</button>
+                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="education">Education</button>
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="internship">Internship</button>
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="skills">Skill Sets</button>
                     <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="projects">Projects</button>
@@ -90,8 +114,8 @@
 
         <!-- Tab Content -->
         <main>
-            <!-- Professional Section -->
-            <div id="professional" class="tab-content active fade-in visible">
+            <!-- Experience Section -->
+            <div id="experience" class="tab-content active fade-in visible">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="lg:col-span-2">
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">Work Experience</h2>
@@ -162,6 +186,24 @@
                 </div>
             </div>
 
+            <!-- Education Section -->
+            <div id="education" class="tab-content fade-in">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Education</h2>
+                <div class="space-y-4 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 text-lg">M.Tech, Embedded Systems</h3>
+                        <p class="text-sm text-gray-600">Amrita University</p>
+                        <p class="text-sm text-gray-500">CGPA: 9.40/10.0 (Silver Medalist)</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 text-lg">B.E, Electronics and Communication</h3>
+                        <p class="text-sm text-gray-600">Anna University</p>
+                        <p class="text-sm text-gray-500">CGPA: 8.01/10.0</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Internship Section -->
             <div id="internship" class="tab-content fade-in">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Internship Experience</h2>
@@ -198,26 +240,29 @@
                        <div class="flex flex-wrap gap-2 text-sm"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Backend Development</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">ML Modelling</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Data Analytics</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">SIEM & XDR</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">System Design</span></div>
                    </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                        <h3 class="font-bold text-lg text-gray-800 mb-3">Strengths</h3>
-                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600">
-                            <li><strong>Problem Solving:</strong> Developed solutions for complex problems resulting in a 30% increase in efficiency.</li>
-                            <li><strong>Attention to Detail:</strong> Implemented rigorous testing methodologies resulting in 99% bug-free code.</li>
-                            <li><strong>Teamwork:</strong> Collaborated with cross-functional teams on successful project completions within deadlines.</li>
-                            <li><strong>Adaptability:</strong> Seamlessly adjusted to new challenges and contributed effectively to projects' success.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                        <h3 class="font-bold text-lg text-gray-800 mb-3">Career Journey</h3>
-                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600">
-                            <li>Testing - Manual & Automation</li>
-                            <li>Test Plan Development</li>
-                            <li>Software Development</li>
-                            <li>Escalation Engineering</li>
-                            <li>Development Operations</li>
-                            <li>Support Tools Development</li>
-                        </ul>
+                <div class="mt-8">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4 text-center">Strengths</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                            <i class="fas fa-lightbulb text-2xl text-blue-700 mb-2"></i>
+                            <h4 class="font-semibold text-gray-800">Problem Solving</h4>
+                            <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Developed solutions for complex problems resulting in a 30% increase in efficiency.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        </div>
+                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                             <i class="fas fa-search text-2xl text-blue-700 mb-2"></i>
+                            <h4 class="font-semibold text-gray-800">Attention to Detail</h4>
+                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Implemented rigorous testing methodologies resulting in 99% bug-free code.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        </div>
+                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                             <i class="fas fa-users text-2xl text-blue-700 mb-2"></i>
+                            <h4 class="font-semibold text-gray-800">Teamwork</h4>
+                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Collaborated with cross-functional teams on successful project completions within deadlines.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        </div>
+                        <div class="strength-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
+                            <i class="fas fa-cogs text-2xl text-blue-700 mb-2"></i>
+                            <h4 class="font-semibold text-gray-800">Adaptability</h4>
+                             <div class="strength-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Seamlessly adjusted to new challenges and contributed effectively to projects' success.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,28 +325,12 @@
 
             <!-- Personal Section -->
             <div id="personal" class="tab-content fade-in">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">About Me</h2>
                         <p class="text-base leading-relaxed bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
                             With over seven years of experience, I am a passionate Software and ML Model Development & Design Engineer. My expertise lies in building and maintaining scalable, reliable, and high-performance systems. Proficient in Go, Python, and C++, I have a strong background in developing robust backend services, optimizing cloud infrastructure on AWS, and managing Kubernetes environments. I have a proven ability to enhance system efficiency through CI/CD automation, diligent monitoring, effective on-call issue resolution, and a hands-on approach to debugging.
                         </p>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Education</h2>
-                        <div class="space-y-4 bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                            <div>
-                                <h3 class="font-semibold text-gray-800">M.Tech, Embedded Systems</h3>
-                                <p class="text-sm text-gray-600">Amrita University</p>
-                                <p class="text-sm text-gray-500">CGPA: 9.40/10.0 (Silver Medalist)</p>
-                            </div>
-                            <hr>
-                            <div>
-                                <h3 class="font-semibold text-gray-800">B.E, Electronics and Communication</h3>
-                                <p class="text-sm text-gray-600">Anna University</p>
-                                <p class="text-sm text-gray-500">CGPA: 8.01/10.0</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
