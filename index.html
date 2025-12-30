@@ -1,906 +1,1419 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manikandan Ramanathan - Senior Software Engineer</title>
+    <!-- Tailwind with Dark Mode config via class -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        google: {
+                            blue: '#4285F4',
+                            red: '#EA4335',
+                            yellow: '#FBBC05',
+                            green: '#34A853',
+                            gray: '#F1F3F4',
+                            dark: '#202124',
+                            dark_surface: '#303134'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Product Sans', 'Google Sans', 'Open Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Importing Product Sans and Google Sans -->
+    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+            font-family: 'Product Sans', 'Google Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .tab-button.active {
-            color: #1e40af; /* blue-800 */
-            border-bottom: 2px solid #1e40af;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bdc1c6;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #5f6368;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9aa0a6;
+        }
+
+        /* Animations */
         .tab-content {
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
         .tab-content.active {
             display: block;
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .fade-in.visible {
+        .tab-content.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Base Card Styling with Borders for Light Mode */
+        .material-card {
+            background-color: #ffffff; /* White in light mode */
+            border: 1px solid #e5e7eb; /* Light gray border for light mode */
+            border-radius: 1.5rem; /* rounded-3xl */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        /* Dark Mode Overrides for Cards */
+        .dark .material-card {
+            background-color: #303134;
+            border-color: #5f6368;
+        }
+
+        .material-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .material-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Tooltip */
         .info-card .info-tooltip {
             visibility: hidden;
             opacity: 0;
-            transition: opacity 0.3s, visibility 0.3s;
+            transform: translateY(5px);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .info-card:hover .info-tooltip {
             visibility: visible;
             opacity: 1;
+            transform: translateY(0);
         }
-        .family-member-btn.active {
-            background-color: #e0e7ff; /* indigo-100 */
-            color: #312e81; /* indigo-900 */
-            font-weight: 600;
+
+        /* Modal Animation */
+        #endorsement-modal.visible {
+            display: flex;
         }
+        #endorsement-modal.visible #endorsement-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Toggle Switch */
+        .theme-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .theme-toggle-checkbox {
+            opacity: 0;
+            position: absolute;
+        }
+        .theme-toggle-label {
+            width: 50px;
+            height: 26px;
+            background-color: #202124;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border: 1px solid #5f6368;
+        }
+        .theme-toggle-checkbox:checked + .theme-toggle-label {
+            background-color: #f1f3f4;
+            border-color: #dadce0;
+        }
+        .theme-toggle-ball {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            border-radius: 50%;
+            transition: transform 0.2s linear;
+        }
+        .theme-toggle-checkbox:checked + .theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+            background-color: #4285F4;
+        }
+        .fa-sun { color: #f39c12; }
+        .fa-moon { color: #f1c40f; }
+        
+        .dark .bg-surface { background-color: #303134; }
+        .light .bg-surface { background-color: #ffffff; }
+        
+        /* Metric Highlight */
+        .highlight-metric {
+            color: #1967d2;
+            font-weight: 700;
+            background-color: #e8f0fe;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .dark .highlight-metric {
+            color: #8ab4f8;
+            background-color: rgba(66, 133, 244, 0.2);
+        }
+        
+        /* Medalist Hover Card */
+        .medalist-trigger:hover .medalist-card {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0) translateX(-50%);
+        }
+        .medalist-card {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(10px) translateX(-50%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Family Panel Animation - Strict Separation */
         .family-details-panel {
             display: none;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
         }
         .family-details-panel.active {
             display: block;
         }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased min-h-screen bg-[#f0f2f5] text-[#202124] dark:bg-[#202124] dark:text-[#e8eaed] transition-colors duration-300">
 
-    <div class="max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
-        <!-- Header Section -->
-        <header class="flex flex-col sm:flex-row items-center justify-between mb-8 pb-4 border-b border-gray-200">
-            <div class="flex items-center gap-6">
-                <img src="profile-picture.png" alt="Manikandan Ramanathan" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md hidden sm:block">
-                <div>
-                    <h1 class="text-4xl font-bold text-gray-800">Manikandan Ramanathan</h1>
-                    <p class="text-md text-blue-800 font-medium mt-1">Senior Software Engineer | ML & Cloud</p>
-                    <div class="flex items-center flex-wrap gap-x-4 gap-y-2 text-gray-500 mt-3 text-sm">
-                        <div class="relative inline-block info-card">
-                            <a href="mailto:maniramanathan@icloud.com" class="hover:text-blue-800 flex items-center"><i class="fas fa-envelope mr-2"></i>maniramanathan@icloud.com</a>
-                            <div class="info-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none">
-                                <p>Response might take a day to 2 days.</p>
-                                <svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>
-                            </div>
-                        </div>
-                        <a href="mailto:maniramanathan@icloud.com" class="hover:text-blue-800 flex items-center"><i class="fas fa-phone mr-2"></i>+91 90XXX XXX55</a>
-                        <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i>Bengaluru, India</span>
-                    </div>
-                     <div class="flex items-center space-x-3 mt-4">
-                        <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-blue-700 hover:bg-blue-800 transition-colors" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://www.facebook.com/manikandan.ramanathan.2025" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.instagram.com/manikandan_ramanathan/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-gradient-to-br from-purple-600 to-pink-500 hover:opacity-90 transition-opacity" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://x.com/maniramanathn" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-gray-800 hover:bg-black transition-colors" aria-label="X">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://www.youtube.com/@manikandan_ramanathan" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-red-600 hover:bg-red-700 transition-colors" aria-label="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="https://open.spotify.com/artist/7gmDLrdzYULGigAvdMLkJq" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-green-500 hover:bg-green-600 transition-colors" aria-label="Spotify">
-                            <i class="fab fa-spotify"></i>
-                        </a>
-                        <a href="https://music.apple.com/ca/artist/manikandan-ramanathan/1768927043" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-gray-800 hover:bg-black transition-colors" aria-label="Apple Music">
-                            <i class="fab fa-apple"></i>
-                        </a>
-                        <a href="https://sneeka.substack.com/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full text-white bg-orange-500 hover:bg-orange-600 transition-colors" aria-label="Substack Blog">
-                            <i class="fas fa-pen-nib"></i>
-                        </a>
-                    </div>
+    <div class="max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-10">
+        
+        <!-- Header & Theme Toggle -->
+        <div class="flex justify-end mb-4">
+            <div class="theme-toggle-wrapper">
+                <input type="checkbox" class="theme-toggle-checkbox" id="theme-toggle" checked>
+                <label for="theme-toggle" class="theme-toggle-label">
+                    <i class="fas fa-moon text-xs text-[#e8eaed]"></i>
+                    <i class="fas fa-sun text-xs text-[#fbbc05]"></i>
+                    <div class="theme-toggle-ball"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <header class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-center">
+            <!-- Profile Image & Socials -->
+            <div class="lg:col-span-4 flex flex-col items-center lg:items-start space-y-6">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-google-blue via-google-red to-google-yellow rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <img src="profile-picture.png" alt="Manikandan Ramanathan" class="relative w-48 h-48 rounded-[1.8rem] object-cover shadow-xl border-4 border-white dark:border-[#303134]">
+                </div>
+                
+                <div class="flex flex-wrap justify-center lg:justify-start gap-3">
+                    <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#0077b5] dark:text-[#e8eaed] shadow-sm hover:bg-[#e8f0fe] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-linkedin-in text-lg"></i></a>
+                    <a href="https://www.facebook.com/manikandan.ramanathan.2025" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#1877f2] dark:text-[#e8eaed] shadow-sm hover:bg-[#e8f0fe] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-facebook-f text-lg"></i></a>
+                    <a href="https://www.instagram.com/manikandan_ramanathan/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#e4405f] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-instagram text-lg"></i></a>
+                    <a href="https://x.com/maniramanathn" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-black dark:text-[#e8eaed] shadow-sm hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-twitter text-lg"></i></a>
+                    <a href="https://www.youtube.com/@manikandan_ramanathan" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#ff0000] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-youtube text-lg"></i></a>
+                    <a href="https://open.spotify.com/artist/7gmDLrdzYULGigAvdMLkJq" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#1db954] dark:text-[#e8eaed] shadow-sm hover:bg-[#e6f4ea] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-spotify text-lg"></i></a>
+                    <a href="https://music.apple.com/ca/artist/manikandan-ramanathan/1768927043" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-black dark:text-[#e8eaed] shadow-sm hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-apple text-lg"></i></a>
+                    <a href="https://sneeka.substack.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#ff6719] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fas fa-pen-nib text-lg"></i></a>
                 </div>
             </div>
-            <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="mt-4 sm:mt-0 inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-900 transition duration-300">
-                <i class="fas fa-eye mr-2"></i>
-                View Resume
-            </a>
+
+            <!-- Intro Text -->
+            <div class="lg:col-span-8 text-center lg:text-left space-y-6">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-[#202124] dark:text-[#e8eaed]">Manikandan <br class="hidden md:block" /> Ramanathan</h1>
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#1967d2] dark:bg-[#4285F4]/20 dark:text-[#8ab4f8] font-medium text-sm mt-2 border border-google-blue/10 dark:border-transparent">
+                        <i class="fas fa-code mr-2"></i> Senior Software Engineer | ML & Cloud
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4 text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">
+                    <div class="relative info-card group cursor-pointer bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#4285F4] dark:hover:border-[#8ab4f8] transition">
+                        <i class="fas fa-envelope text-[#ea4335]"></i>
+                        <a href="mailto:maniramanathan@icloud.com" class="dark:text-[#e8eaed]">maniramanathan@icloud.com</a>
+                        <div class="info-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] text-xs rounded-lg py-2 px-3 shadow-xl z-10">
+                            Response time: 1-2 days
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-[#202124] dark:border-t-[#e8eaed]"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#34a853] dark:hover:border-[#81c995] transition">
+                        <i class="fas fa-phone-alt text-[#34a853]"></i>
+                        <span class="dark:text-[#e8eaed]">+91 90XXX XXX55</span>
+                    </div>
+                    <div class="bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#fbbc05] dark:hover:border-[#fdd663] transition">
+                        <i class="fas fa-map-marker-alt text-[#fbbc05]"></i>
+                        <span class="dark:text-[#e8eaed]">Bengaluru, India</span>
+                    </div>
+                </div>
+
+                <p class="text-lg text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed max-w-3xl">
+                    Passionate Software and ML Model Development & Design Engineer with over 7 years of experience. Expert in Go, Python, and C++, building scalable cloud infrastructure on AWS and Kubernetes.
+                </p>
+
+                <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-full text-white bg-[#1a73e8] hover:bg-[#185abc] dark:bg-[#8ab4f8] dark:text-[#202124] dark:hover:bg-[#aecbfa] transition shadow-lg shadow-blue-900/20 active:scale-95 border border-transparent">
+                    <i class="fas fa-file-alt mr-2"></i> View Resume
+                </a>
+            </div>
         </header>
 
-        <!-- Highlights Section -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            <div class="bg-white p-4 text-center rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                <h3 class="text-2xl font-bold text-blue-800">7+ Yrs</h3>
-                <p class="text-sm text-gray-500">Experience</p>
+        <!-- Highlights (Material Cards) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div class="material-card p-6 text-center border-l-4 border-[#4285F4] shadow-sm">
+                <h3 class="text-3xl font-bold text-[#4285F4] dark:text-[#8ab4f8]">7+</h3>
+                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Years Experience</p>
             </div>
-            <div class="bg-white p-4 text-center rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                <h3 class="text-2xl font-bold text-blue-800">103K+</h3>
-                <p class="text-sm text-gray-500">Lines Coded</p>
+            <div class="material-card p-6 text-center border-l-4 border-[#EA4335] shadow-sm">
+                <h3 class="text-3xl font-bold text-[#EA4335] dark:text-[#f28b82]">103K+</h3>
+                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Lines Coded</p>
             </div>
-            <div class="bg-white p-4 text-center rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                <h3 class="text-2xl font-bold text-blue-800">M.Tech</h3>
-                <p class="text-sm text-gray-500">Graduate</p>
+            <div class="material-card p-6 text-center border-l-4 border-[#FBBC05] shadow-sm">
+                <h3 class="text-3xl font-bold text-[#FBBC05] dark:text-[#fdd663]">M.Tech</h3>
+                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Embedded Systems</p>
             </div>
-            <div class="bg-white p-4 text-center rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                <h3 class="text-2xl font-bold text-blue-800">10+</h3>
-                <p class="text-sm text-gray-500">Awards</p>
-            </div>
-        </div>
-
-        <!-- About Me Section -->
-        <div class="mb-10">
-             <p class="text-base text-center leading-relaxed bg-white p-6 rounded-lg border border-gray-200 shadow-sm max-w-4xl mx-auto">
-                With over seven years of experience, I am a passionate Software and ML Model Development & Design Engineer. My expertise lies in building and maintaining scalable, reliable, and high-performance systems. Proficient in Go, Python, and C++, I have a strong background in developing robust backend services, optimizing cloud infrastructure on AWS, and managing Kubernetes environments. I have a proven ability to enhance system efficiency through CI/CD automation, diligent monitoring, effective on-call issue resolution, and a hands-on approach to debugging.
-            </p>
-        </div>
-
-
-        <!-- Interactive Tabs -->
-        <div class="mb-8">
-            <div class="border-b border-gray-200">
-                <nav class="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
-                    <button class="tab-button active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="experience">Experience</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="education">Education</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="internship">Internship</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="skills">Skill Sets</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="projects">Projects</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="honours">Exams & Honours</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="personal">Personal</button>
-                    <button class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-800" data-tab="abstracted">Abstracted Info</button>
-                </nav>
+            <div class="material-card p-6 text-center border-l-4 border-[#34A853] shadow-sm">
+                <h3 class="text-3xl font-bold text-[#34A853] dark:text-[#81c995]">10+</h3>
+                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Major Awards</p>
             </div>
         </div>
 
-        <!-- Tab Content -->
-        <main>
-            <!-- Experience Section -->
-            <div id="experience" class="tab-content active fade-in visible">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Work Experience</h2>
-                        <div class="space-y-8">
+        <!-- Sticky Navigation -->
+        <div class="sticky top-4 z-40 mb-8 overflow-x-auto pb-4 -mx-4 px-4 no-scrollbar">
+            <nav class="bg-white/90 dark:bg-[#303134]/90 backdrop-blur-md p-1.5 rounded-full shadow-lg border border-[#dadce0] dark:border-[#5f6368] inline-flex min-w-full md:min-w-0">
+                <button class="tab-button active px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap dark:text-[#e8eaed]" data-tab="experience">Experience</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="education">Education</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="internship">Internship</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="skills">Skills</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="projects">Projects</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="honours">Honours</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="personal">Personal</button>
+                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="abstracted"><i class="fas fa-lock text-xs mr-2"></i>Private</button>
+            </nav>
+        </div>
 
-                            <!-- Experience Item -->
-                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                    <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Apr 2025 - Present</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer (G8)</h3>
-                                        <p class="font-medium text-gray-600 text-sm">Cisco - Machine Learning & AI</p>
-                                        <p class="text-sm text-gray-600 mt-2">A data-driven Software Engineer specializing in sales analytics and business intelligence. My work involves creating predictive models and interactive dashboards that transform raw sales data into actionable insights, directly influencing strategic planning.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Developed a machine learning model for predictive sales forecasting, improving accuracy by over 20%.</li>
-                                            <li>Engineered BI dashboards that provided real-time insights, leading to a 15% increase in cross-selling opportunities.</li>
-                                            <li>Built automated data pipelines to identify top-performing products, contributing to strategic sales decisions.</li>
-                                            <li>Designed and maintained data warehouse schemas, reducing query times for sales reporting.</li>
-                                        </ul>
+        <!-- Main Content Area -->
+        <main class="min-h-[500px]">
+            
+            <!-- Experience Tab -->
+            <div id="experience" class="tab-content active visible">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                        <!-- NEW: Key Platforms & Product Areas Card -->
+                        <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-4 flex items-center gap-2">
+                                <i class="fas fa-layer-group text-[#1a73e8] dark:text-[#8ab4f8]"></i> Key Platforms & Product Areas
+                            </h3>
+                            <div class="space-y-4">
+                                <!-- Row 1 -->
+                                <div class="p-4 rounded-xl bg-[#f8f9fa] dark:bg-[#202124] border border-[#dadce0] dark:border-[#5f6368]">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">RSA NetWitness XDR</h4>
+                                        <span class="text-xs font-bold px-2 py-1 rounded bg-[#e8f0fe] dark:bg-[#4285F4]/20 text-[#1967d2] dark:text-[#8ab4f8]">SIEM Cybersecurity</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 text-xs text-[#5f6368] dark:text-[#9aa0a6]">
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">SOC Application</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Information Analytics</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Threat Detection</span>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Experience Item -->
-                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Oct 2022 - Apr 2025</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Cloud Engineer (G6)</h3>
-                                        <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Identities Management</p>
-                                        <p class="text-sm text-gray-600 mt-2">Specialized in developing high-performance, Go-based identity management services, ensuring 100% accuracy and SLA compliance. Enhanced the development lifecycle by automating testing, managing CI/CD pipelines, and deploying optimized applications with Kubernetes on AWS.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Engineered Go-based microservices for identity management, achieving 100% SLA compliance.</li>
-                                            <li>Deployed and optimized containerized applications on AWS using Kubernetes and Docker.</li>
-                                            <li>Architected and managed robust CI/CD pipelines with Jenkins for automated builds and deployments.</li>
-                                            <li>Developed custom utilities in Python, Shell, and C++ to streamline debugging and production simulations.</li>
-                                        </ul>
+                                
+                                <!-- Row 2 -->
+                                <div class="p-4 rounded-xl bg-[#f8f9fa] dark:bg-[#202124] border border-[#dadce0] dark:border-[#5f6368]">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">Cisco Secure: Intelligent Proxy</h4>
+                                        <span class="text-xs font-bold px-2 py-1 rounded bg-[#e6f4ea] dark:bg-[#34A853]/20 text-[#137333] dark:text-[#81c995]">Cybersecurity</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 text-xs text-[#5f6368] dark:text-[#9aa0a6]">
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Security Web Gateway</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Network Security</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Traffic Inspection</span>
                                     </div>
                                 </div>
-                            </div>
 
-                             <!-- Experience Item -->
-                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">May 2022 - Oct 2022</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Senior Software Engineer</h3>
-                                        <p class="font-medium text-gray-600 text-sm">Barracuda - Email Security Gateway</p>
-                                        <p class="text-sm text-gray-600 mt-2">Focused on enhancing product value and system reliability by developing critical features, optimizing the CI/CD pipeline, automating workflows, and resolving customer escalations to improve product stability and performance.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Engineered and enhanced critical C++ features for the Email Security Gateway (ESG) product.</li>
-                                            <li>Redesigned CI/CD pipelines using Jenkins to enable continuous integration and accelerated feature delivery.</li>
-                                            <li>Improved product stability by debugging complex software defects with C++ and GDB.</li>
-                                            <li>Resolved critical customer issues by delivering timely hot-fixes and configuration changes.</li>
-                                        </ul>
+                                <!-- Row 3 -->
+                                <div class="p-4 rounded-xl bg-[#f8f9fa] dark:bg-[#202124] border border-[#dadce0] dark:border-[#5f6368]">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">Cisco Secure: Digital Trust</h4>
+                                        <span class="text-xs font-bold px-2 py-1 rounded bg-[#fef7e0] dark:bg-[#FBBC05]/20 text-[#b06000] dark:text-[#fdd663]">Cybersecurity</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 text-xs text-[#5f6368] dark:text-[#9aa0a6]">
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Identities & Access Mgmt</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Information Analytics</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Threat Detection</span>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Experience Item -->
-                            <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Jun 2021 - May 2022</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer</h3>
-                                        <p class="font-medium text-gray-600 text-sm">Cisco - Umbrella Intelligent Proxy</p>
-                                        <p class="text-sm text-gray-600 mt-2">Spearheaded the end-to-end deployment of an innovative product composed of diverse components. Established a robust global infrastructure in 23 data centers, ensuring seamless customer accessibility and continuous service availability.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Engineered microservices in C++, Python, and Go, ensuring SOC2 & FedRAMP compliance.</li>
-                                            <li>Architected Jenkins pipelines from the ground up to automate builds and deployments.</li>
-                                            <li>Established comprehensive monitoring solutions and custom load testing frameworks.</li>
-                                            <li>Guaranteed high availability by managing on-call responsibilities across 23 global data centres.</li>
-                                        </ul>
+
+                                <!-- Row 4 -->
+                                <div class="p-4 rounded-xl bg-[#f8f9fa] dark:bg-[#202124] border border-[#dadce0] dark:border-[#5f6368]">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">Cisco IT: Business Intelligence</h4>
+                                        <span class="text-xs font-bold px-2 py-1 rounded bg-[#fce8e6] dark:bg-[#EA4335]/20 text-[#c5221f] dark:text-[#f28b82]">Data Science</span>
                                     </div>
-                                </div>
-                            </div>
-                            
-                             <!-- Experience Item -->
-                             <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Apr 2019 - Jun 2021</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Software Engineer (1 & 2)</h3>
-                                        <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
-                                        <p class="text-sm text-gray-600 mt-2">Developed high-performance features in C++, capable of processing 30,000 events per second. My role involved automating debugging processes, resolving customer escalations with hot fixes, and enhancing system reliability in a DevOps environment.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Engineered core C++ features for real-time threat detection, achieving 30,000 EPS performance.</li>
-                                            <li>Automated debugging and data collection tools, significantly reducing analysis time.</li>
-                                            <li>Delivered critical hot-fixes to resolve high-priority customer escalations.</li>
-                                            <li>Conducted rigorous functional, performance, and reliability testing to ensure quality.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                             <!-- Experience Item -->
-                             <div class="flex flex-col md:flex-row gap-6 transition-all duration-300 hover:shadow-lg hover:bg-white rounded-lg p-4 -m-4">
-                                <div class="md:w-1/4 text-left md:text-right">
-                                     <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Aug 2018 - Apr 2019</span>
-                                </div>
-                                <div class="md:flex-1 md:pl-6 md:border-l-2 md:border-gray-200 relative">
-                                    <div class="hidden md:block absolute -left-[7px] top-1 w-3 h-3 bg-blue-800 rounded-full border-2 border-white"></div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">Software Quality Engineer 1</h3>
-                                        <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
-                                        <p class="text-sm text-gray-600 mt-2">Focused on ensuring high-quality software releases by creating automated test cases and developing custom tools to streamline testing processes, driving test automation, and leading defect resolution with development teams.</p>
-                                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600 mt-3">
-                                            <li>Pioneered an automation tool that reduced product installation time from over 6 hours to just 28 minutes.</li>
-                                            <li>Built Python and Ruby tools for test data generation and resource management.</li>
-                                            <li>Streamlined the entire testing workflow by automating build downloading, installation, and test execution.</li>
-                                            <li>Actively participated in sprint meetings to define testing requirements for new features.</li>
-                                        </ul>
+                                    <div class="flex flex-wrap gap-2 text-xs text-[#5f6368] dark:text-[#9aa0a6]">
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Enterprise BI</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Sales Data Analytics</span>
+                                        <span class="px-2 py-1 rounded border border-[#dadce0] dark:border-[#5f6368]">Large Scale Forecasting</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Role 1 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden group bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#4285F4]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Software Engineer - ML & AI</h3>
+                                    <p class="text-[#1a73e8] dark:text-[#8ab4f8] font-medium">Cisco Systems • Bengaluru</p>
+                                </div>
+                                <span class="bg-[#e8f0fe] text-[#1967d2] dark:bg-[#1a73e8]/20 dark:text-[#8ab4f8] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">Aug 2025 - Present</span>
+                            </div>
+                            <p class="text-[#5f6368] dark:text-[#bdc1c6] text-sm leading-relaxed mb-4 italic">
+                                Specializing in sales analytics and BI, developing robust data solutions to analyse product performance and market trends.
+                            </p>
+                            <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-chart-line text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Predictive Sales Forecasting:</strong> Developed ML models analyzing historical data, improving forecasting accuracy by <span class="highlight-metric dark:bg-[#4285F4]/20 dark:text-[#8ab4f8]">over 20%</span>.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-tachometer-alt text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Performance Dashboards:</strong> Deployed interactive BI dashboards providing real-time insights, leading to a <span class="highlight-metric dark:bg-[#4285F4]/20 dark:text-[#8ab4f8]">15% increase</span> in cross-selling.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-server text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Data Infrastructure:</strong> Designed warehouse schemas for sales reporting, reducing query times and improving reliability.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-bullseye text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Goal-Setting Automation:</strong> Created automated systems to generate data-driven sales goals aligned with company growth.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 2 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#EA4335]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Cloud Engineer - Identity Mgmt</h3>
+                                    <p class="text-[#EA4335] dark:text-[#f28b82] font-medium">Cisco Systems • Bengaluru</p>
+                                </div>
+                                <span class="bg-[#fce8e6] text-[#c5221f] dark:bg-[#EA4335]/20 dark:text-[#f28b82] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">Oct 2022 - Aug 2025</span>
+                            </div>
+                             <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-check-circle text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Go Service Development:</strong> Engineered microservices for identity management, achieving <span class="highlight-metric dark:bg-[#EA4335]/20 dark:text-[#f28b82]">99.999% SLA</span>.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-check-circle text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Containerization:</strong> Deployed and optimized containerized applications on AWS using Kubernetes and Docker.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-check-circle text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>CI/CD & Automation:</strong> Architected robust Jenkins pipelines for automated builds and service deployments.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-check-circle text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Testing & Tooling:</strong> Automated end-to-end testing with Python/Selenium and developed custom debugging utilities.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 3 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#FBBC05]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Senior Software Engineer</h3>
+                                    <p class="text-[#f9ab00] dark:text-[#fdd663] font-medium">Barracuda Networks • Email Security</p>
+                                </div>
+                                <span class="bg-[#fef7e0] text-[#b06000] dark:bg-[#FBBC05]/20 dark:text-[#fdd663] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">May 2022 - Oct 2022</span>
+                            </div>
+                            <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-code text-[#FBBC05] dark:text-[#fdd663] mt-1 mr-3 shrink-0"></i><span><strong>C++ Feature Development:</strong> Engineered critical features for Email Security Gateway (ESG) ensuring robust protection.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-rocket text-[#FBBC05] dark:text-[#fdd663] mt-1 mr-3 shrink-0"></i><span><strong>CI/CD Optimization:</strong> Redesigned Jenkins pipelines for continuous integration and accelerated feature delivery.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-bug text-[#FBBC05] dark:text-[#fdd663] mt-1 mr-3 shrink-0"></i><span><strong>System Stability:</strong> Debugged complex defects with GDB and implemented library upgrades for performance.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-tools text-[#FBBC05] dark:text-[#fdd663] mt-1 mr-3 shrink-0"></i><span><strong>Automation:</strong> Developed Python/Shell/Ruby utilities to streamline test data creation and debugging.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 4 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#34A853]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Software Engineer</h3>
+                                    <p class="text-[#34A853] dark:text-[#81c995] font-medium">Cisco Systems • Intelligent Proxy</p>
+                                </div>
+                                <span class="bg-[#e6f4ea] text-[#137333] dark:bg-[#34A853]/20 dark:text-[#81c995] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">Jun 2021 - May 2022</span>
+                            </div>
+                            <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-cloud text-[#34A853] dark:text-[#81c995] mt-1 mr-3 shrink-0"></i><span><strong>Cloud Service Dev:</strong> Engineered containerized microservices in C++, Python, and Go for cloud-native deployment.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-globe text-[#34A853] dark:text-[#81c995] mt-1 mr-3 shrink-0"></i><span><strong>High Availability:</strong> Managed on-call responsibilities across <span class="highlight-metric dark:bg-[#34A853]/20 dark:text-[#81c995]">23 global data centres</span> ensuring high uptime.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-shield-alt text-[#34A853] dark:text-[#81c995] mt-1 mr-3 shrink-0"></i><span><strong>Compliance:</strong> Integrated code ensuring strict adherence to SOC2 and FedRAMP standards.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-network-wired text-[#34A853] dark:text-[#81c995] mt-1 mr-3 shrink-0"></i><span><strong>Infrastructure:</strong> Optimized infrastructure by eliminating redundant functionalities and designing load testing frameworks.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 5 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#4285F4]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Software Engineer (1-2)</h3>
+                                    <p class="text-[#1a73e8] dark:text-[#8ab4f8] font-medium">RSA Security • NetWitness XDR</p>
+                                </div>
+                                <span class="bg-[#e8f0fe] text-[#1967d2] dark:bg-[#1a73e8]/20 dark:text-[#8ab4f8] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">Apr 2019 - Jun 2021</span>
+                            </div>
+                            <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-bolt text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>High-Performance Dev:</strong> Engineered C++ features for threat detection, processing <span class="highlight-metric dark:bg-[#4285F4]/20 dark:text-[#8ab4f8]">30,000 EPS</span>.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-robot text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Automation:</strong> Automated debugging tools reducing analysis time and improving troubleshooting.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-fire-extinguisher text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Escalation Mgmt:</strong> Delivered critical hot-fixes for high-priority customer escalations.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-database text-[#4285F4] dark:text-[#8ab4f8] mt-1 mr-3 shrink-0"></i><span><strong>Database Tooling:</strong> Implemented utilities to resolve persistent database challenges.</span></li>
+                            </ul>
+                        </div>
+
+                         <!-- Role 6 -->
+                        <div class="material-card p-6 md:p-8 relative overflow-hidden bg-white dark:bg-[#303134] rounded-3xl shadow-sm border border-transparent dark:border-[#5f6368]">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#EA4335]"></div>
+                            <div class="flex flex-wrap justify-between items-start mb-4 gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed]">Software Quality Engineer 1</h3>
+                                    <p class="text-[#EA4335] dark:text-[#f28b82] font-medium">RSA Security • NetWitness XDR</p>
+                                </div>
+                                <span class="bg-[#fce8e6] text-[#c5221f] dark:bg-[#EA4335]/20 dark:text-[#f28b82] px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">Aug 2018 - Apr 2019</span>
+                            </div>
+                            <ul class="space-y-3 mt-4">
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-stopwatch text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Process Improvement:</strong> Pioneered automation tool reducing installation time from <span class="highlight-metric dark:bg-[#EA4335]/20 dark:text-[#f28b82]">6 hours to 28 mins</span>.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-check-double text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Test Automation:</strong> Developed comprehensive test cases to prevent regression defects.</span></li>
+                                <li class="flex items-start text-sm text-[#3c4043] dark:text-[#bdc1c6]"><i class="fas fa-code-branch text-[#EA4335] dark:text-[#f28b82] mt-1 mr-3 shrink-0"></i><span><strong>Custom Tools:</strong> Built Python and Ruby tools for test data generation and resource management.</span></li>
+                            </ul>
+                        </div>
+
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recommendations</h2>
-                        <div class="space-y-6">
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"Mani is a hardworking, diligent, and committed individual. He has a great work ethic and is always ready to take on challenges... His documentation work is extremely detailed and very descriptive."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Avaneesh Vyas</p><p class="text-right text-xs text-gray-500">Engineering Lead, Scrut Automation</p></div>
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"What amazed me interacting with Mani was he had the passion to explore unknown areas... I found Mani very hard working, curious and able to explore different areas. He is a very good asset to any team."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Biju Vasudevan</p><p class="text-right text-xs text-gray-500">Principal PM, ZScalar</p></div>
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"><p class="text-gray-600 text-sm italic">"I worked with Manikandan for the 'Netwitness Endpoint' project and was consistently impressed by his meticulous approach. His attention to detail, proactive mindset, and excellent communication skills played a pivotal role in ensuring the successful delivery of our project."</p><p class="text-right text-sm font-semibold text-gray-800 mt-3">- Bharathiraja</p><p class="text-right text-xs text-gray-500">Engineer, Tesco</p></div>
+
+                    <!-- Recommendations Sidebar (Right Column) -->
+                    <div class="lg:col-span-4 space-y-6">
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] px-2">Endorsements</h3>
+                        <!-- Biju Vasudevan -->
+                        <div class="material-card p-6 bg-[#e6f4ea] dark:bg-[#3c4043] rounded-3xl border-none cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1" onclick='openEndorsement({name: "Biju Vasudevan", role: "Senior Manager", text: "What amazed me interacting with Mani was he had the passion to explore unknown areas... I found Mani very hard working, curious and able to explore different areas. He is a very good asset to any team.", color: "green"})'>
+                            <i class="fas fa-quote-left text-[#34A853] dark:text-[#81c995] text-4xl mb-2"></i>
+                            <p class="text-[#3c4043] dark:text-[#e8eaed] text-sm italic mb-4 line-clamp-3">"What amazed me interacting with Mani was he had the passion to explore unknown areas... He is a very good asset to any team."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-[#34A853] flex items-center justify-center text-white font-bold text-xs">BV</div>
+                                <div>
+                                    <p class="text-xs font-bold text-[#202124] dark:text-[#e8eaed]">Biju Vasudevan</p>
+                                    <p class="text-[10px] text-[#5f6368] dark:text-[#9aa0a6]">Senior Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Bharathiraja -->
+                        <div class="material-card p-6 bg-[#e8f0fe] dark:bg-[#3c4043] rounded-3xl cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1" onclick='openEndorsement({name: "Bharathiraja", role: "Engineer, Tesco", text: "I worked with Manikandan for the Netwitness Endpoint project and was consistently impressed by his meticulous approach. His attention to detail, proactive mindset, and excellent communication skills played a pivotal role in ensuring the successful delivery of our project.", color: "blue"})'>
+                             <i class="fas fa-quote-left text-[#4285F4] dark:text-[#8ab4f8] text-4xl mb-2"></i>
+                            <p class="text-[#3c4043] dark:text-[#e8eaed] text-sm italic mb-4 line-clamp-3">"His attention to detail, proactive mindset, and excellent communication skills played a pivotal role in ensuring the successful delivery of our project."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-[#4285F4] flex items-center justify-center text-white font-bold text-xs">B</div>
+                                <div>
+                                    <p class="text-xs font-bold text-[#202124] dark:text-[#e8eaed]">Bharathiraja</p>
+                                    <p class="text-[10px] text-[#5f6368] dark:text-[#9aa0a6]">Engineer, Tesco</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Avaneesh Vyas -->
+                        <div class="material-card p-6 bg-[#fef7e0] dark:bg-[#3c4043] rounded-3xl border-none cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1" onclick='openEndorsement({name: "Avaneesh Vyas", role: "Eng Lead, Scrut", text: "Mani is a hardworking, diligent, and committed individual. He has a great work ethic and is always ready to take on challenges... His documentation work is extremely detailed and very descriptive.", color: "orange"})'>
+                            <i class="fas fa-quote-left text-[#f9ab00] dark:text-[#fdd663] text-4xl mb-2"></i>
+                            <p class="text-[#3c4043] dark:text-[#e8eaed] text-sm italic mb-4 line-clamp-3">"Mani is a hardworking, diligent, and committed individual... His documentation work is extremely detailed and very descriptive."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-[#f9ab00] flex items-center justify-center text-white font-bold text-xs">AV</div>
+                                <div>
+                                    <p class="text-xs font-bold text-[#202124] dark:text-[#e8eaed]">Avaneesh Vyas</p>
+                                    <p class="text-[10px] text-[#5f6368] dark:text-[#9aa0a6]">Eng Lead, Scrut</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Education Section -->
-            <div id="education" class="tab-content fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Education</h2>
-                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-6">
-                    <!-- M.Tech -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                        <div class="md:col-span-2 text-center md:text-left">
-                            <h3 class="text-3xl font-bold text-gray-500">M.Tech</h3>
+            <!-- Education Tab -->
+            <div id="education" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Masters -->
+                    <div class="material-card p-8 flex flex-col items-center text-center relative medalist-trigger">
+                        <div class="w-16 h-16 rounded-2xl bg-[#e8f0fe] dark:bg-[#4285F4]/20 text-[#1967d2] dark:text-[#8ab4f8] flex items-center justify-center text-2xl mb-4">
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <div class="md:col-span-8">
-                            <h4 class="font-semibold text-gray-800 text-lg">Master of Technology in Embedded Systems <i class="fas fa-medal text-yellow-500" title="Silver Medalist"></i></h4>
-                            <a href="http://www.amrita.edu" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-blue-700 hover:underline">Amrita University</a>
-                            <p class="mt-1"><span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">2016 - 2018</span></p>
+                        <h3 class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">Master of Technology</h3>
+                        <p class="text-[#5f6368] dark:text-[#9aa0a6] font-medium mb-1">Embedded Systems</p>
+                        <p class="text-[#1a73e8] dark:text-[#8ab4f8] font-bold text-sm mb-4">Amrita University • 2016-2018</p>
+                        <div class="mt-auto bg-[#f1f3f4] dark:bg-[#202124] px-4 py-2 rounded-full shadow-sm cursor-help">
+                            <span class="text-[#5f6368] dark:text-[#bdc1c6] text-sm font-medium">CGPA: <span class="text-[#202124] dark:text-[#e8eaed] font-bold">9.40</span> <i class="fas fa-medal text-[#fbbc05] ml-1"></i></span>
                         </div>
-                        <div class="md:col-span-2 text-center md:text-right">
-                            <p class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">9.40</p>
-                            <p class="text-xs text-gray-500">CGPA</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <!-- B.E -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                        <div class="md:col-span-2 text-center md:text-left">
-                             <h3 class="text-3xl font-bold text-gray-500">B.E</h3>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="font-semibold text-gray-800 text-lg">Bachelor of Engineering in Electronics & Communication</h4>
-                             <a href="https://www.annauniv.edu/#gsc.tab=0" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-blue-700 hover:underline">Anna University</a>
-                             <p class="mt-1"><span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">2012 - 2016</span></p>
-                        </div>
-                        <div class="md:col-span-2 text-center md:text-right">
-                            <p class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">8.01</p>
-                             <p class="text-xs text-gray-500">CGPA</p>
+                        <!-- Silver Medalist Hover Card - Fixed position -->
+                        <div class="medalist-card absolute top-full left-1/2 mt-4 w-64 bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] p-4 rounded-2xl shadow-xl text-left z-50 border border-gray-600 dark:border-transparent">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full bg-[#fbbc05] flex items-center justify-center text-[#202124]"><i class="fas fa-medal"></i></div>
+                                <p class="font-bold text-sm">Silver Medalist</p>
+                            </div>
+                            <p class="text-xs text-[#bdc1c6] dark:text-[#5f6368]">Awarded for securing 2nd Rank in the university across all campuses.</p>
+                            <div class="absolute -top-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-b-[#202124] dark:border-b-[#e8eaed]"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-
-            <!-- Internship Section -->
-            <div id="internship" class="tab-content fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Internship Experience</h2>
-                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                    <div class="flex justify-between items-start">
+                    <!-- Bachelors -->
+                    <div class="material-card p-8 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-[#fce8e6] dark:bg-[#EA4335]/20 text-[#c5221f] dark:text-[#f28b82] flex items-center justify-center text-2xl mb-4">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">Bachelor of Engineering</h3>
+                        <p class="text-[#5f6368] dark:text-[#9aa0a6] font-medium mb-1">Electronics and Communication Engineering</p>
+                        <p class="text-[#c5221f] dark:text-[#f28b82] font-bold text-sm mb-4">Anna University • 2012-2016</p>
+                         <div class="mt-auto bg-[#f1f3f4] dark:bg-[#202124] px-4 py-2 rounded-full shadow-sm">
+                            <span class="text-[#5f6368] dark:text-[#bdc1c6] text-sm font-medium">CGPA: <span class="text-[#202124] dark:text-[#e8eaed] font-bold">8.01</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- HSC -->
+                    <div class="material-card p-6 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#e6f4ea] dark:bg-[#34A853]/20 text-[#137333] dark:text-[#81c995] flex items-center justify-center text-xl shrink-0">
+                            <i class="fas fa-school"></i>
+                        </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-800">College Co-op Student</h3>
-                            <p class="font-medium text-gray-600 text-sm">RSA Security - NetWitness XDR</p>
+                            <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">Higher Secondary (Grade 12)</h4>
+                            <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6]">State Board Certification</p>
                         </div>
-                        <p class="text-sm font-semibold text-gray-500">Jul 2017 - Jul 2018</p>
+                        <div class="ml-auto font-bold text-[#34A853] dark:text-[#81c995] text-xl">92.6%</div>
                     </div>
-                    <ul class="list-disc list-inside text-sm space-y-2 text-gray-600 mt-4">
-                        <li>Actively contributed to the Quality Engineering team, handling both manual and automated testing processes.</li>
-                        <li>Demonstrated proactive problem-solving by investigating test failures and collaborating with development for prompt resolutions.</li>
-                        <li>Developed two valuable web applications: a centralized system for secure file transfers and test result storage, and a lab inventory management system to streamline asset assignment.</li>
-                    </ul>
+
+                    <!-- SSLC -->
+                    <div class="material-card p-6 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#fef7e0] dark:bg-[#FBBC05]/20 text-[#b06000] dark:text-[#fdd663] flex items-center justify-center text-xl shrink-0">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-[#202124] dark:text-[#e8eaed]">SSLC (Grade 10)</h4>
+                            <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6]">Secondary School Leaving Cert.</p>
+                        </div>
+                        <div class="ml-auto font-bold text-[#FBBC05] dark:text-[#fdd663] text-xl">89%</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Skills Section -->
-            <div id="skills" class="tab-content fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Technical Skill Sets</h2>
+            <!-- Internship Tab -->
+            <div id="internship" class="tab-content">
+                <div class="material-card p-8 border-l-8 border-[#FBBC05] relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FBBC05] to-transparent opacity-20"></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">College Co-op Student</h3>
+                            <p class="text-[#5f6368] dark:text-[#9aa0a6] font-medium">RSA Security - NetWitness XDR</p>
+                        </div>
+                        <span class="mt-2 md:mt-0 px-4 py-1.5 rounded-full bg-[#fef7e0] text-[#b06000] dark:bg-[#FBBC05]/20 dark:text-[#fdd663] text-sm font-bold">Jul 2017 - Jul 2018</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-[#fef7e0] dark:bg-[#FBBC05]/20 flex items-center justify-center text-[#b06000] dark:text-[#fdd663] shrink-0"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-[#202124] dark:text-[#e8eaed] text-sm">QA Automation & Testing</h4>
+                                <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed">Executed comprehensive manual and automated testing cycles for the QE team, ensuring high-quality deliverables and reducing regression testing time.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-[#fef7e0] dark:bg-[#FBBC05]/20 flex items-center justify-center text-[#b06000] dark:text-[#fdd663] shrink-0"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-[#202124] dark:text-[#e8eaed] text-sm">Secure File Transfer System</h4>
+                                <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed">Architected and deployed a centralized secure file transfer system to streamline data sharing across teams, improving security compliance.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-[#fef7e0] dark:bg-[#FBBC05]/20 flex items-center justify-center text-[#b06000] dark:text-[#fdd663] shrink-0"><i class="fas fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-[#202124] dark:text-[#e8eaed] text-sm">Inventory Management</h4>
+                                <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed">Designed and implemented a lab inventory management system, reducing asset tracking time by 40% and optimizing resource allocation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Tab -->
+            <div id="skills" class="tab-content">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                   <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                       <h3 class="font-bold text-lg text-gray-800 mb-3">Languages</h3>
-                       <div class="flex flex-wrap gap-2 text-sm"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Go</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Python</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">C++14</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">SQL & NoSQL</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Shell</span></div>
-                   </div>
-                   <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                       <h3 class="font-bold text-lg text-gray-800 mb-3">Cloud & DevOps</h3>
-                       <div class="flex flex-wrap gap-2 text-sm"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">AWS</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Kubernetes</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Docker</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Jenkins</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Terraform</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">CI/CD</span></div>
-                   </div>
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                       <h3 class="font-bold text-lg text-gray-800 mb-3">Core Competencies</h3>
-                       <div class="flex flex-wrap gap-2 text-sm"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Backend Development</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">ML Modelling</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Data Analytics</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">SIEM & XDR</span><span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">System Design</span></div>
-                   </div>
-                </div>
-                <div class="mt-8">
-                    <h3 class="font-bold text-lg text-gray-800 mb-4 text-center">Strengths</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                            <i class="fas fa-lightbulb text-2xl text-blue-700 mb-2"></i>
-                            <h4 class="font-semibold text-gray-800">Problem Solving</h4>
-                            <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Developed solutions for complex problems resulting in a 30% increase in efficiency.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                    <!-- Languages -->
+                    <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-[#e8f0fe] dark:bg-[#4285F4]/20 text-[#1967d2] dark:text-[#8ab4f8] rounded-lg"><i class="fas fa-code"></i></div>
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed]">Languages</h3>
                         </div>
-                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                             <i class="fas fa-search text-2xl text-blue-700 mb-2"></i>
-                            <h4 class="font-semibold text-gray-800">Attention to Detail</h4>
-                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Implemented rigorous testing methodologies resulting in 99% bug-free code.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Go</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Python</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">C++14</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">SQL & NoSQL</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Shell</span>
                         </div>
-                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                             <i class="fas fa-users text-2xl text-blue-700 mb-2"></i>
-                            <h4 class="font-semibold text-gray-800">Teamwork</h4>
-                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Collaborated with cross-functional teams on successful project completions within deadlines.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                    </div>
+                    <!-- Cloud -->
+                    <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-[#fce8e6] dark:bg-[#EA4335]/20 text-[#c5221f] dark:text-[#f28b82] rounded-lg"><i class="fas fa-cloud"></i></div>
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed]">Cloud & DevOps</h3>
                         </div>
-                        <div class="info-card relative flex flex-col items-center justify-center bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                            <i class="fas fa-cogs text-2xl text-blue-700 mb-2"></i>
-                            <h4 class="font-semibold text-gray-800">Adaptability</h4>
-                             <div class="info-tooltip absolute bottom-full mb-2 w-56 bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Seamlessly adjusted to new challenges and contributed effectively to projects' success.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">AWS</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Kubernetes</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Docker</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Terraform</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Jenkins</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">CI/CD</span>
+                        </div>
+                    </div>
+                    <!-- Core -->
+                    <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-[#e6f4ea] dark:bg-[#34A853]/20 text-[#137333] dark:text-[#81c995] rounded-lg"><i class="fas fa-layer-group"></i></div>
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed]">Core Competencies</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Backend Development</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">ML Modelling</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">System Design</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">Data Analytics</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#f1f3f4] dark:bg-[#202124] text-[#3c4043] dark:text-[#e8eaed] text-sm font-medium border border-[#dadce0] dark:border-[#5f6368]">SIEM & XDR</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Projects Section -->
-            <div id="projects" class="tab-content fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Projects & Publications</h2>
+            <!-- Projects Tab -->
+            <div id="projects" class="tab-content">
+                <!-- Project Disclaimer Banner -->
+                <div class="mb-6 p-4 bg-[#e8f0fe] dark:bg-[#1a73e8]/20 border-l-4 border-[#1a73e8] dark:border-[#8ab4f8] rounded-r-xl flex items-start gap-3">
+                    <i class="fas fa-info-circle text-[#1967d2] dark:text-[#8ab4f8] mt-1 shrink-0"></i>
+                    <p class="text-sm text-[#3c4043] dark:text-[#bdc1c6]">
+                        <strong>Note:</strong> This portfolio highlights a curated selection of key projects to demonstrate core technical competencies. It does not represent an exhaustive list of all professional engagements and deliverables.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Project 1 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-[#202124] to-[#3c4043] flex items-center justify-center">
+                            <i class="fas fa-traffic-light text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Traffic Sign Recognition</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">Real-time detection using Deep Learning with 98.5% accuracy for autonomous systems.</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">TensorFlow</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">OpenCV</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-[#34A853] to-[#137333] flex items-center justify-center">
+                            <i class="fas fa-leaf text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Smart IoT Agriculture</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">ESP32 based monitoring system sending data to AWS IoT Core for automated irrigation.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">AWS IoT</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">ESP32</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New ML Project 3 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-[#4285F4] to-[#185abc] flex items-center justify-center">
+                            <i class="fas fa-users text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Customer Churn Prediction</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">Developed a predictive model to identify at-risk customers, improving retention strategies by analyzing behavioral data patterns.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Python</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Scikit-learn</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Pandas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New ML Project 4 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-[#EA4335] to-[#c5221f] flex items-center justify-center">
+                            <i class="fas fa-comments text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Sentiment Analysis Engine</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">NLP-based engine analyzing thousands of customer reviews to extract actionable product insights and sentiment trends.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">NLP</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">BERT</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">TensorFlow</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Professional Project 5 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-purple-600 to-indigo-700 flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Scalable Log Anomaly Detection</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">Unsupervised learning system using Isolation Forests to detect security threats in logs processing 30k+ EPS in real-time.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Kafka</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">PyTorch</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">ELK Stack</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Professional Project 6 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-cyan-600 to-blue-700 flex items-center justify-center">
+                            <i class="fas fa-robot text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">RAG-based Knowledge Assistant</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">Enterprise-grade chatbot leveraging LLMs and Vector DBs to automate technical support queries with 95% retrieval accuracy.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">LangChain</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">OpenAI</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Pinecone</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Professional Project 7 -->
+                    <div class="material-card p-0 overflow-hidden flex flex-col h-full bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <div class="h-32 bg-gradient-to-r from-teal-600 to-green-700 flex items-center justify-center">
+                            <i class="fas fa-server text-5xl text-white/20"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-2">Predictive Infrastructure Scaling</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] mb-4">Time-series forecasting model to predict server load and auto-scale Kubernetes clusters, reducing cloud costs by 25%.</p>
+                             <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">K8s</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Prometheus</span>
+                                <span class="text-xs font-bold text-[#3c4043] dark:text-[#e8eaed] bg-[#f1f3f4] dark:bg-[#202124] px-2 py-1 rounded">Scikit-learn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Publication -->
+                    <div class="material-card p-6 md:col-span-2 border border-[#4285F4]/30 bg-[#e8f0fe]/50 dark:bg-[#4285F4]/10 shadow-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-white dark:bg-[#202124] rounded-xl shadow-sm"><i class="fas fa-book text-[#4285F4] dark:text-[#8ab4f8] text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-[#202124] dark:text-[#e8eaed]">A Comprehensive Approach for Network Security</h3>
+                                <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] italic mb-2">IEEE Publication, 2018</p>
+                                <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6]">Proposed a system to predict, detect, and mitigate network-level attacks.</p>
+                                <a href="https://ieeexplore.ieee.org/document/8472952" target="_blank" class="inline-block mt-3 text-sm font-bold text-[#1a73e8] dark:text-[#8ab4f8] hover:underline">Read Paper <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Honours Tab -->
+            <div id="honours" class="tab-content">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Projects</h3>
+                     <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] mb-4 border-b border-[#dadce0] dark:border-[#5f6368] pb-2">Awards & Achievements</h3>
                         <div class="space-y-4">
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">Real-time Traffic Sign Recognition</h4>
-                                <p class="text-sm text-gray-600 mt-1">Developed a deep learning model for real-time traffic sign detection and classification from video streams, designed for autonomous driving systems. Achieved 98.5% accuracy on a custom dataset.</p>
-                                <div class="mt-3 flex flex-wrap gap-2">
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Python</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">TensorFlow</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">OpenCV</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Computer Vision</span>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#e8f0fe] dark:bg-[#4285F4]/20 flex items-center justify-center text-[#1967d2] dark:text-[#8ab4f8] shrink-0"><i class="fas fa-trophy"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">Best Product POC for Data Engineering</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Cisco (Software Engineer), 2025</p>
                                 </div>
                             </div>
-                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">IoT-Based Smart Agriculture System</h4>
-                                <p class="text-sm text-gray-600 mt-1">Designed and built an end-to-end IoT system using ESP32 microcontrollers to monitor soil moisture and temperature. Data is sent to an AWS IoT Core backend for analysis and automated irrigation control.</p>
-                                <div class="mt-3 flex flex-wrap gap-2">
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Embedded C++</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">ESP32</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">MQTT</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">AWS IoT</span>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#fef7e0] dark:bg-[#FBBC05]/20 flex items-center justify-center text-[#b06000] dark:text-[#fdd663] shrink-0"><i class="fas fa-code"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">Hackathon Best Performer Award</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Cisco BU Event, 2025</p>
                                 </div>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h4 class="font-semibold">Intelligent Self-Healing Network</h4>
-                                <p class="text-sm text-gray-600 mt-1">Dissertation on improving network security using SDN to identify and mitigate attacks, focusing on IoT and large-scale networks.</p>
-                                <div class="mt-3 flex flex-wrap gap-2">
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">SDN</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Python</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">IoT</span>
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs font-medium">Network Security</span>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#e6f4ea] dark:bg-[#34A853]/20 flex items-center justify-center text-[#137333] dark:text-[#81c995] shrink-0"><i class="fas fa-hands-helping"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">11 Peer Recognition Awards</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Cisco Financial Awards, 2022-24</p>
+                                </div>
+                            </div>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#fce8e6] dark:bg-[#EA4335]/20 flex items-center justify-center text-[#c5221f] dark:text-[#f28b82] shrink-0"><i class="fas fa-star"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">Best Performer Award</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">RSA Security, 2021</p>
+                                </div>
+                            </div>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#f1f3f4] dark:bg-[#202124] flex items-center justify-center text-[#5f6368] dark:text-[#9aa0a6] shrink-0"><i class="fas fa-award"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">Presidential Award Nominee (Best QE)</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">RSA Security Org-Wide Nomination, 2019</p>
+                                </div>
+                            </div>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#f1f3f4] dark:bg-[#202124] flex items-center justify-center text-[#5f6368] dark:text-[#9aa0a6] shrink-0"><i class="fas fa-medal"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">Proficiency Award - Silver Medallist</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Amrita University (M.Tech), 2017 & 2018</p>
+                                </div>
+                            </div>
+                            <!-- Award Item -->
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 w-10 h-10 rounded-full bg-[#e8f0fe] dark:bg-[#4285F4]/20 flex items-center justify-center text-[#1967d2] dark:text-[#8ab4f8] shrink-0"><i class="fas fa-graduation-cap"></i></div>
+                                <div>
+                                    <p class="font-bold text-[#202124] dark:text-[#e8eaed]">GATE 2016 Qualified (92nd Percentile)</p>
+                                    <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Indian Institute of Science</p>
                                 </div>
                             </div>
                         </div>
+                     </div>
+                     <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] mb-4 border-b border-[#dadce0] dark:border-[#5f6368] pb-2">Impact</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-[#f1f3f4] dark:bg-[#202124] p-3 rounded-xl text-center">
+                                <p class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">99.9%</p>
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Uptime</p>
+                            </div>
+                            <div class="bg-[#f1f3f4] dark:bg-[#202124] p-3 rounded-xl text-center">
+                                <p class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">30%</p>
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Faster Analysis</p>
+                            </div>
+                             <div class="bg-[#f1f3f4] dark:bg-[#202124] p-3 rounded-xl text-center">
+                                <p class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">100+</p>
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">Issues Found</p>
+                            </div>
+                            <div class="bg-[#f1f3f4] dark:bg-[#202124] p-3 rounded-xl text-center">
+                                <p class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">&lt;15d</p>
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6]">TTR Reduced</p>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Personal Tab -->
+            <div id="personal" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Row 1 -->
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Name</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Manikandan Ramanathan</p>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Publications</h3>
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                             <h4 class="font-semibold">A Comprehensive Approach for Network Security</h4>
-                             <p class="text-sm text-gray-500 italic">Institute of Electrical and Electronics Engineers (IEEE), 2018</p>
-                             <p class="text-sm text-gray-600 mt-2">Proposed a system to predict, detect, and mitigate network-level attacks, particularly for distributed residential and large-scale networks.</p>
-                             <a href="https://ieeexplore.ieee.org/document/8472952" target="_blank" class="text-sm text-blue-700 hover:underline mt-2 inline-block">View Publication &rarr;</a>
-                        </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Alternative Legal Name</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Manikandan Rm</p>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Marital Status</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Divorced</p>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="material-card p-6 info-card cursor-help relative group shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Date of Birth</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">11-April-1995</p>
+                        <div id="age-tooltip" class="info-tooltip absolute top-2 right-2 bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] text-xs rounded py-1 px-2 font-bold shadow-lg"></div>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Current Location</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Bengaluru, India</p>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Relocation</p>
+                        <p class="text-lg font-bold text-[#34A853] dark:text-[#81c995]"><i class="fas fa-check-circle mr-2"></i>Yes</p>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Nationality</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">India</p>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Passport</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Available</p>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Work Permit</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">India by Citizenship</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Honours Section -->
-            <div id="honours" class="tab-content fade-in">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Exams, Honours & Achievements</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Awards & Honours</h3>
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-award text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Presidential Award Nominee</h4>
-                                <p class="text-xs text-gray-500">RSA Security, 2019</p>
-                            </div>
-                        </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-medal text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Silver Medalist</h4>
-                                <p class="text-xs text-gray-500">Amrita University, 2018</p>
-                            </div>
-                        </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-star text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Proficiency Award</h4>
-                                <p class="text-xs text-gray-500">Amrita University, 2017</p>
-                            </div>
-                        </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-graduation-cap text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">GATE 2016 Qualified</h4>
-                                <p class="text-xs text-gray-500">92nd Percentile</p>
-                            </div>
-                        </div>
+            <!-- Private Tab -->
+            <div id="abstracted" class="tab-content">
+                <div id="locked-content" class="relative overflow-hidden rounded-[2rem] material-card h-96 bg-white dark:bg-[#303134] shadow-sm">
+                    <!-- Blurred Content Background -->
+                    <div class="absolute inset-0 p-8 filter blur-md bg-[#f1f3f4] dark:bg-[#202124] flex items-center justify-center opacity-50">
+                        <div class="text-6xl text-[#bdc1c6] font-bold">CONFIDENTIAL DATA</div>
                     </div>
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Key Achievements</h3>
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-server text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Infrastructure Uptime</h4>
-                                <p class="text-xs text-gray-500">Maintained 99.999% uptime with DR</p>
-                            </div>
+                    
+                    <!-- Lock Interface -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 bg-white/60 dark:bg-[#303134]/60 backdrop-blur-sm px-4 text-center">
+                        <div class="w-16 h-16 bg-white dark:bg-[#202124] rounded-full shadow-lg flex items-center justify-center mb-4 text-2xl text-[#5f6368] dark:text-[#9aa0a6]">
+                            <i class="fas fa-lock"></i>
                         </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-headset text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Escalation Engineering</h4>
-                                <p class="text-xs text-gray-500">Reduced TTR from 20 to &lt;15 days</p>
-                            </div>
+                        <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-2">Protected Information</h3>
+                        
+                        <!-- Warning Message -->
+                        <div class="bg-[#fce8e6] dark:bg-[#5c2b29] border border-[#f28b82] rounded-xl p-4 mb-3 flex items-start gap-3 max-w-lg text-left shadow-sm">
+                            <i class="fas fa-exclamation-triangle text-[#EA4335] dark:text-[#f28b82] mt-1 shrink-0"></i>
+                            <p class="text-[#c5221f] dark:text-[#f6aea9] text-sm font-medium">Access Restricted: To view this confidential information, please input the required security credentials obtained from the authorized source.</p>
                         </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-cogs text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Debugging Automation</h4>
-                                <p class="text-xs text-gray-500">Reduced analysis time by over 30%</p>
-                            </div>
+
+                        <!-- Nagarathar Info Message -->
+                        <div class="bg-[#e6f4ea] dark:bg-[#34A853]/20 border border-[#34A853] dark:border-[#81c995] rounded-xl p-4 mb-6 flex items-start gap-3 max-w-lg text-left shadow-sm">
+                            <i class="fas fa-info-circle text-[#34A853] dark:text-[#81c995] mt-1 shrink-0"></i>
+                            <p class="text-[#137333] dark:text-[#81c995] text-sm font-medium">For visitors from Nagarathar community websites: Please use the contact number listed in my profile's contact section to unlock this page.</p>
                         </div>
-                         <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            <i class="fas fa-check-circle text-blue-600 text-2xl mt-1 mr-4"></i>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Quality Engineering</h4>
-                                <p class="text-xs text-gray-500">Identified 100+ functional issues</p>
-                            </div>
+                        
+                        <div class="flex gap-2 justify-center">
+                            <input id="passcode-input" type="password" class="px-4 py-3 rounded-xl border border-[#dadce0] dark:border-[#5f6368] bg-white dark:bg-[#202124] text-[#202124] dark:text-[#e8eaed] focus:border-[#4285F4] focus:ring-2 focus:ring-[#4285F4]/20 outline-none w-48 text-center tracking-widest transition" placeholder="••••••••">
+                            <button id="passcode-submit" class="bg-[#1a73e8] hover:bg-[#185abc] dark:bg-[#8ab4f8] dark:text-[#202124] dark:hover:bg-[#aecbfa] text-white px-6 py-3 rounded-xl font-bold transition shadow-lg">Proceed</button>
                         </div>
+                        <p id="error-message" class="text-[#EA4335] dark:text-[#f28b82] text-xs mt-3 font-bold hidden bg-[#fce8e6] dark:bg-[#5c2b29] px-3 py-1 rounded-full">Incorrect access code</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Personal Section -->
-            <div id="personal" class="tab-content fade-in">
-                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Personal Details</h2>
-                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Name</p>
-                        <h4 class="font-semibold text-gray-800 truncate">Manikandan Ramanathan</h4>
-                    </div>
-                     <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Alternative Legal Name</p>
-                        <h4 class="font-semibold text-gray-800">Manikandan Rm</h4>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Marital Status</p>
-                        <h4 class="font-semibold text-gray-800">Divorced</h4>
-                    </div>
-                    <div class="info-card relative bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200 cursor-pointer">
-                         <p class="text-sm text-gray-500">Date of Birth</p>
-                         <h4 class="font-semibold text-gray-800">11-April-1995</h4>
-                         <div id="age-tooltip" class="info-tooltip absolute bottom-full mb-2 w-auto bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none">
-                            <!-- Age will be inserted here by JS -->
-                         </div>
-                    </div>
-                     <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Current Location</p>
-                        <h4 class="font-semibold text-gray-800">Bengaluru, India</h4>
-                    </div>
-                     <div class="info-card relative bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200 cursor-pointer">
-                        <p class="text-sm text-gray-500">Relocation</p>
-                        <h4 class="font-semibold text-gray-800">Yes</h4>
-                        <div class="info-tooltip absolute bottom-full mb-2 w-max bg-gray-800 text-white text-xs rounded-lg py-2 px-3 pointer-events-none"><p>Happy to relocate. Might need sponsorship for Visa.</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg></div>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Nationality</p>
-                        <h4 class="font-semibold text-gray-800">India</h4>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Passport</p>
-                        <h4 class="font-semibold text-gray-800">Available</h4>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-200">
-                        <p class="text-sm text-gray-500">Work Permit</p>
-                        <h4 class="font-semibold text-gray-800">India by Citizenship</h4>
-                    </div>
-                 </div>
-            </div>
-
-             <!-- Abstracted Section -->
-            <div id="abstracted" class="tab-content fade-in">
-                <div id="locked-content" class="relative">
-                    <!-- Blurred background content -->
-                    <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm blur-sm">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Abstracted Information</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-400 mb-4">Professional</h3>
-                                <div class="space-y-2"><p class="text-gray-400">Salary: ●●●●●●●</p><p class="text-gray-400">Location: ●●●●●●●</p></div>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-400 mb-4">Health</h3>
-                                <div class="space-y-2"><p class="text-gray-400">HIV: ●●●●●●●</p><p class="text-gray-400">VDRL: ●●●●●●●</p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Passcode entry form on top -->
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div class="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border text-center">
-                            <i class="fas fa-lock text-3xl text-gray-600 mb-3"></i>
-                            <h3 class="font-semibold text-gray-800 mb-3">Enter Access Code</h3>
-                            <div class="flex gap-2">
-                                <input id="passcode-input" type="password" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="••••••••••">
-                                <button id="passcode-submit" class="px-4 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">Unlock</button>
-                            </div>
-                            <p id="error-message" class="text-red-600 text-xs mt-2 hidden">Wrong access code. Please try again.</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="unlocked-content" class="hidden">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Abstracted Information</h2>
-                    <div class="space-y-8">
+                <!-- Unlocked Content -->
+                <div id="unlocked-content" class="hidden space-y-8">
+                    
+                    <!-- Divorce / Legal Status -->
+                    <div class="material-card p-6 border border-[#EA4335]/30 bg-[#fce8e6]/50 dark:bg-[#EA4335]/10 shadow-sm">
+                        <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-4 flex items-center gap-2">
+                            <i class="fas fa-gavel text-[#EA4335] dark:text-[#f28b82]"></i> Legal & Marital Status
+                        </h3>
                         
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <!-- Professional & Health -->
-                            <div class="space-y-8">
-                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-briefcase mr-3 text-blue-700"></i>Professional</h3>
-                                    <div class="space-y-3">
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Salary</p><p class="font-semibold text-gray-800">₹30,00,000 Per Annum</p></div>
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Location</p><p class="font-semibold text-gray-800">Bengaluru, India</p></div>
-                                    </div>
-                                </div>
-                                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                     <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-heartbeat mr-3 text-blue-700"></i>Health</h3>
-                                     <div class="space-y-3">
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HIV</p><p class="font-semibold text-green-600">Negative</p></div>
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">VDRL</p><p class="font-semibold text-green-600">Negative</p></div>
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">HBsAg</p><p class="font-semibold text-green-600">Negative</p></div>
-                                        <div class="flex justify-between items-center"><p class="text-sm text-gray-500">Hepatitis</p><p class="font-semibold text-green-600">Negative</p></div>
-                                    </div>
-                                    <div class="mt-4 pt-4 border-t">
-                                        <div class="p-3 mb-3 rounded-md bg-gradient-to-r from-blue-50 to-purple-50 text-center text-xs text-gray-700">
-                                            <i class="fas fa-info-circle mr-1"></i>
-                                            As a divorcee, it feels morally responsible to show these results for the safety of a future partner.
-                                        </div>
-                                        <div class="text-right">
-                                            <a href="report.pdf" target="_blank" class="inline-flex items-center text-sm font-medium text-blue-700 hover:underline">View Report <i class="fas fa-external-link-alt ml-2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Married On</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">24 November 2021</p>
                             </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Divorced On</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">05 January 2024</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Divorce Type</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Divorce by Mutual Consent</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Kids from First Marriage</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">0</p>
+                            </div>
+                        </div>
 
-                            <!-- Native Details -->
-                            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-gopuram mr-3 text-blue-700"></i>Native Details</h3>
-                                 <div class="space-y-4 text-sm">
-                                    <div class="flex"><p class="w-1/2 text-gray-500">Native</p><p class="w-1/2 font-semibold text-gray-800">Devakottai</p></div>
-                                    <div class="flex"><p class="w-1/2 text-gray-500">Temple</p><p class="w-1/2 font-semibold text-gray-800">Pillaiyarpatti</p></div>
-                                    <hr>
-                                    <div class="flex"><p class="w-1/2 text-gray-500">Father's Name</p><p class="w-1/2 font-semibold text-gray-800">Ramanathan V</p></div>
-                                    <div class="flex"><p class="w-1/2 text-gray-500">Mother's Name</p><p class="w-1/2 font-semibold text-gray-800">Alamelu Rm</p></div>
-                                    <hr>
-                                    <div class="flex"><p class="w-1/2 text-gray-500">House Vilasam</p><p class="w-1/2 font-semibold text-gray-800">V.N.C.Rm House</p></div>
-                                    <div class="flex"><p class="w-1/2 text-gray-500">House Name</p><p class="w-1/2 font-semibold text-gray-800">Seigon Chinniah Chettiar Veedu</p></div>
-                                 </div>
-                            </div>
+                        <!-- Legal Disclaimer -->
+                        <div class="flex items-start gap-3 p-4 bg-[#fce8e6] dark:bg-[#5c2b29] border-l-4 border-[#c5221f] dark:border-[#f28b82] rounded-r-xl">
+                            <i class="fas fa-balance-scale text-[#c5221f] dark:text-[#f28b82] mt-1 shrink-0"></i>
+                            <p class="text-sm text-[#5f6368] dark:text-[#bdc1c6] italic leading-relaxed">
+                                "In strict adherence to ethical standards and Section 13.b of the legal divorce agreement, any discussion or disclosure regarding details of the previous spouse or marriage is strictly prohibited. We maintain a steadfast commitment to privacy, dignity, and mutual respect."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Astrological Details -->
+                    <div class="material-card p-6 border border-[#FBBC05]/30 bg-[#fef7e0]/50 dark:bg-[#FBBC05]/10 shadow-sm relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4 relative z-10">
+                             <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] flex items-center gap-2">
+                                <i class="fas fa-star text-[#FBBC05] dark:text-[#fdd663]"></i> Astrological Details
+                            </h3>
                         </div>
                         
-                        <!-- Immediate Family -->
-                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-users mr-3 text-blue-700"></i>Immediate Family</h3>
-                            <div class="flex flex-col md:flex-row gap-6">
-                                <div class="md:w-1/3">
-                                    <div class="space-y-2">
-                                        <button class="family-member-btn active w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-ramanathan-v">Ramanathan V</button>
-                                        <button class="family-member-btn w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-alamelu">Alamelu</button>
-                                        <button class="family-member-btn w-full text-left px-4 py-2 rounded-md transition-colors" data-target="family-ganesh">Ganesh Laxman</button>
-                                    </div>
+                        <!-- Disclaimer Banner -->
+                        <div class="mb-6 p-3 bg-[#f1f3f4] dark:bg-[#202124]/50 border-l-4 border-[#5f6368] dark:border-[#9aa0a6] rounded-r-lg text-sm text-[#5f6368] dark:text-[#bdc1c6] italic">
+                            <span class="font-bold not-italic">Note:</span> While our family maintains deep spiritual roots, we approach life through rational principles. These astrological details are included here for historical completeness and cultural context.
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Date of Birth</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">11-April-1995</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Time of Birth</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">08:31 PM (IST)</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Birth Location</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Madurai, Tamilnadu</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Rasi</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Simham</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Nakshathra</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Magam</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Lagnam</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Thulam</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Vitals -->
+                        <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed]">Health Vitals</h3>
+                                <a href="report.pdf" target="_blank" class="text-xs font-bold text-[#1967d2] dark:text-[#8ab4f8] bg-[#e8f0fe] dark:bg-[#4285F4]/20 px-3 py-1 rounded-full hover:bg-[#d2e3fc] dark:hover:bg-[#4285F4]/30 transition">View Report</a>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between p-3 bg-[#e6f4ea] dark:bg-[#34A853]/10 rounded-xl border border-[#34A853]/20">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">Blood Group</span>
+                                    <span class="text-sm font-bold text-[#137333] dark:text-[#81c995]"><i class="fas fa-tint mr-1"></i> B-</span>
                                 </div>
-                                <div class="md:w-2/3">
-                                    <div id="family-ramanathan-v" class="family-details-panel active p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
-                                        <h4 class="font-bold text-gray-800">Ramanathan V</h4>
-                                        <p class="text-xs text-gray-500 mb-3">Father</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong class="font-medium text-gray-600">Position:</strong> General Manager</p>
-                                            <p><strong class="font-medium text-gray-600">Organization:</strong> Bhuvaneshwari CotSpin</p>
-                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Kangeyam,Tamilnadu,India" target="_blank" class="text-blue-600 hover:underline">Kangeyam, Tamilnadu</a></p>
-                                            <p><strong class="font-medium text-gray-600">Phone:</strong> <a href="tel:+919790427072" class="text-blue-600 hover:underline">+91 9790427072</a></p>
-                                            <p><strong class="font-medium text-gray-600">Vagai:</strong> Chellanchetty</p>
-                                        </div>
-                                    </div>
-                                    <div id="family-alamelu" class="family-details-panel p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
-                                        <h4 class="font-bold text-gray-800">Alamelu</h4>
-                                        <p class="text-xs text-gray-500 mb-3">Mother</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong class="font-medium text-gray-600">Position:</strong> Home Maker</p>
-                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Kangeyam,Tamilnadu,India" target="_blank" class="text-blue-600 hover:underline">Kangeyam, Tamilnadu</a></p>
-                                            <p><strong class="font-medium text-gray-600">Phone:</strong> <a href="tel:+919677480837" class="text-blue-600 hover:underline">+91 9677480837</a></p>
-                                            <p><strong class="font-medium text-gray-600">Native:</strong> Devakottai</p>
-                                            <p><strong class="font-medium text-gray-600">Paternal Temple:</strong> Nemam</p>
-                                            <p><strong class="font-medium text-gray-600">Vagai:</strong> Thi-na</p>
-                                        </div>
-                                    </div>
-                                     <div id="family-ganesh" class="family-details-panel p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50">
-                                        <h4 class="font-bold text-gray-800">Ganesh Laxman</h4>
-                                        <p class="text-xs text-gray-500 mb-3">Younger Brother</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong class="font-medium text-gray-600">Position:</strong> Design Engineer</p>
-                                            <p><strong class="font-medium text-gray-600">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Chennai" target="_blank" class="text-blue-600 hover:underline">Chennai, India</a></p>
-                                        </div>
-                                    </div>
+                                <div class="flex justify-between p-3 bg-[#e6f4ea] dark:bg-[#34A853]/10 rounded-xl border border-[#34A853]/20">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">HIV / VDRL</span>
+                                    <span class="text-sm font-bold text-[#137333] dark:text-[#81c995]"><i class="fas fa-shield-alt mr-1"></i> Negative</span>
+                                </div>
+                                 <div class="flex justify-between p-3 bg-[#e6f4ea] dark:bg-[#34A853]/10 rounded-xl border border-[#34A853]/20">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">HBsAg / Hepatitis</span>
+                                    <span class="text-sm font-bold text-[#137333] dark:text-[#81c995]"><i class="fas fa-shield-alt mr-1"></i> Negative</span>
+                                </div>
+                                <div class="flex justify-between p-3 bg-[#e6f4ea] dark:bg-[#34A853]/10 rounded-xl border border-[#34A853]/20">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">Blood Pressure</span>
+                                    <span class="text-sm font-bold text-[#137333] dark:text-[#81c995]"><i class="fas fa-heartbeat mr-1"></i> 130/80</span>
+                                </div>
+                                <div class="flex justify-between p-3 bg-[#e6f4ea] dark:bg-[#34A853]/10 rounded-xl border border-[#34A853]/20">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">Blood Sugar</span>
+                                    <span class="text-sm font-bold text-[#137333] dark:text-[#81c995]"><i class="fas fa-cube mr-1"></i> 91</span>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Pictures -->
-                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm md:col-span-2">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-images mr-3 text-blue-700"></i>Pictures</h3>
-                            <div id="slideshow-container" class="relative w-full max-w-2xl mx-auto">
-                                <!-- Slides -->
-                                <div class="relative h-96 overflow-hidden rounded-lg bg-gray-100">
-                                     <div class="slideshow-item duration-700 ease-in-out">
-                                        <img src="001.png" class="absolute block w-full h-full object-contain" alt="Gallery image 1">
-                                    </div>
-                                     <div class="slideshow-item duration-700 ease-in-out hidden">
-                                        <img src="002.png" class="absolute block w-full h-full object-contain" alt="Gallery image 2">
-                                    </div>
-                                     <div class="slideshow-item duration-700 ease-in-out hidden">
-                                        <img src="003.jpg" class="absolute block w-full h-full object-contain" alt="Gallery image 3">
-                                    </div>
-                                     <div class="slideshow-item duration-700 ease-in-out hidden">
-                                        <img src="004.JPG" class="absolute block w-full h-full object-contain" alt="Gallery image 4">
-                                    </div>
-                                     <div class="slideshow-item duration-700 ease-in-out hidden">
-                                        <img src="005.png" class="absolute block w-full h-full object-contain" alt="Gallery image 5">
-                                    </div>
-                                     <div class="slideshow-item duration-700 ease-in-out hidden">
-                                        <img src="006.PNG" class="absolute block w-full h-full object-contain" alt="Gallery image 6">
-                                    </div>
+
+                        <!-- Professional -->
+                        <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                            <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-4">Professional Stats</h3>
+                             <div class="space-y-3">
+                                <div class="flex justify-between p-3 bg-[#f1f3f4] dark:bg-[#202124] rounded-xl">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">Compensation</span>
+                                    <span class="text-sm font-bold text-[#202124] dark:text-[#e8eaed]">₹30,00,000 PA</span>
                                 </div>
-                                <!-- Slider indicators -->
-                                <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"></button>
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"></button>
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"></button>
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5"></button>
-                                    <button type="button" class="slideshow-indicator w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 6"></button>
+                                <div class="flex justify-between p-3 bg-[#f1f3f4] dark:bg-[#202124] rounded-xl">
+                                    <span class="text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">Location</span>
+                                    <span class="text-sm font-bold text-[#202124] dark:text-[#e8eaed]">Bengaluru, Karnataka</span>
                                 </div>
-                                <!-- Slider controls -->
-                                <button id="prev-slide" type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/20 group-hover:bg-black/40 group-focus:ring-4 group-focus:ring-white/50 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                        </svg>
-                                        <span class="sr-only">Previous</span>
-                                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Family Tree -->
+                    <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
+                        <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-6">Family Details</h3>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="md:col-span-1 space-y-2">
+                                <button class="family-member-btn active w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-ramanathan-v">
+                                    <i class="fas fa-user-tie mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ramanathan Viswanathan (Father)
                                 </button>
-                                <button id="next-slide" type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/20 group-hover:bg-black/40 group-focus:ring-4 group-focus:ring-white/50 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                        </svg>
-                                        <span class="sr-only">Next</span>
-                                    </span>
+                                <button class="family-member-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-alamelu">
+                                    <i class="fas fa-user mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Alamelu Ramanathan (Mother)
+                                </button>
+                                <button class="family-member-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-ganesh">
+                                    <i class="fas fa-user-graduate mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ganesh Laxman Ramanathan (Brother)
                                 </button>
                             </div>
-                        </div>
+                            <!-- Separated Display Panels -->
+                            <div class="md:col-span-2 bg-[#e8f0fe]/50 dark:bg-[#4285F4]/10 rounded-2xl p-6 border border-[#e8f0fe] dark:border-[#4285F4]/20 min-h-[200px]">
+                                
+                                <div id="family-ramanathan-v" class="family-details-panel active">
+                                    <h4 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-1">Ramanathan Viswanathan</h4>
+                                    <p class="text-sm text-[#1967d2] dark:text-[#8ab4f8] font-bold mb-4">Father</p>
+                                    <div class="space-y-2 text-sm text-[#5f6368] dark:text-[#bdc1c6]">
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Position:</span> General Manager</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Organization:</span> Bhuvaneshwari CotSpin</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Location:</span> Kangeyam, Tamilnadu</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Phone:</span> +91 9790427072</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Vagai:</span> Chellanchetty</p>
+                                    </div>
+                                </div>
 
+                                <div id="family-alamelu" class="family-details-panel">
+                                    <h4 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-1">Alamelu Ramanathan</h4>
+                                    <p class="text-sm text-[#1967d2] dark:text-[#8ab4f8] font-bold mb-4">Mother</p>
+                                    <div class="space-y-2 text-sm text-[#5f6368] dark:text-[#bdc1c6]">
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Position:</span> Home Maker</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Location:</span> Kangeyam, Tamilnadu</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Phone:</span> +91 9677480837</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Native:</span> Devakottai</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Paternal Temple:</span> Nemam</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Vagai:</span> Thi-na</p>
+                                    </div>
+                                </div>
+
+                                <div id="family-ganesh" class="family-details-panel">
+                                    <h4 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-1">Ganesh Laxman Ramanathan</h4>
+                                    <p class="text-sm text-[#1967d2] dark:text-[#8ab4f8] font-bold mb-4">Younger Brother</p>
+                                    <div class="space-y-2 text-sm text-[#5f6368] dark:text-[#bdc1c6]">
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Position:</span> Design Engineer</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Organization:</span> Caterpillar</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Location:</span> Chennai, India</p>
+                                        <p><span class="font-semibold text-[#202124] dark:text-[#e8eaed]">Age:</span> 27</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heritage & Roots Section -->
+                    <div class="material-card p-6 border border-[#FBBC05]/30 bg-[#fef7e0]/50 dark:bg-[#FBBC05]/10 shadow-sm">
+                        <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-4 flex items-center gap-2">
+                            <i class="fas fa-vihara text-[#b06000] dark:text-[#fdd663]"></i> Heritage & Roots
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Existing Cards -->
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Native</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Devakottai</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Temple</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Pillaiyarpatti</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">House Vilasam</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">V.N.C.Rm House</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">House Name</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-sm">Seigon Chinniah Chettiar Veedu</p>
+                            </div>
+                            
+                            <!-- New Cards -->
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Paternal Grand Parents</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Mr Rm Viswanathan, Retd Manager IOB</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mrs. V Visalakshi</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Maternal Grand Parents</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mr Rm Palaniappan</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mr Pl Umayal</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Parent's Residence</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Kangeyam, Tamilnadu</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
+                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Permanent Residence</p>
+                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Senjai, Karaikkudi</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
 
         </main>
 
-        <!-- Footer -->
-        <footer class="text-center mt-12 pt-6 border-t border-gray-200 text-sm text-gray-500">
-            <p>Last updated: September 2025</p>
+        <footer class="mt-16 text-center text-[#5f6368] dark:text-[#9aa0a6] text-sm py-8 border-t border-[#dadce0]/60 dark:border-[#5f6368]/60">
+            <p>© 2026 Manikandan Ramanathan. All rights reserved.</p>
         </footer>
+
     </div>
-    
+
+    <!-- Modal for Endorsements -->
+    <div id="endorsement-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-[#303134] rounded-3xl p-8 max-w-lg w-full shadow-2xl relative transform transition-all scale-95 opacity-0" id="endorsement-content">
+            <button onclick="closeEndorsement()" class="absolute top-4 right-4 text-[#5f6368] dark:text-[#9aa0a6] hover:text-[#202124] dark:hover:text-[#e8eaed] transition"><i class="fas fa-times text-xl"></i></button>
+            <i class="fas fa-quote-left text-[#e8f0fe] dark:text-[#4285F4]/20 text-5xl absolute top-6 left-6 -z-10"></i>
+            <div id="modal-text" class="text-[#3c4043] dark:text-[#e8eaed] text-lg leading-relaxed italic mb-6 mt-2 relative z-10"></div>
+            <div class="flex items-center gap-4 border-t border-[#dadce0] dark:border-[#5f6368] pt-4">
+                 <div id="modal-avatar" class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"></div>
+                 <div>
+                     <p id="modal-name" class="font-bold text-[#202124] dark:text-[#e8eaed]"></p>
+                     <p id="modal-role" class="text-sm text-[#5f6368] dark:text-[#9aa0a6]"></p>
+                 </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        });
+
+        // Modal Logic
+        function openEndorsement(data) {
+            document.getElementById('modal-text').textContent = `"${data.text}"`;
+            document.getElementById('modal-name').textContent = data.name;
+            document.getElementById('modal-role').textContent = data.role;
+            
+            const avatar = document.getElementById('modal-avatar');
+            const initials = data.name.split(' ').map(n => n[0]).join('').substring(0, 2);
+            avatar.textContent = initials;
+            
+            // Set colors based on passed data
+            if(data.color === 'orange') {
+                avatar.className = "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg bg-[#FBBC05]";
+            } else if (data.color === 'green') {
+                avatar.className = "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg bg-[#34A853]";
+            } else {
+                avatar.className = "w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg bg-[#4285F4]";
+            }
+
+            const modal = document.getElementById('endorsement-modal');
+            modal.classList.add('visible');
+            setTimeout(() => {
+                document.getElementById('endorsement-content').style.opacity = '1';
+                document.getElementById('endorsement-content').style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function closeEndorsement() {
+            const content = document.getElementById('endorsement-content');
+            content.style.opacity = '0';
+            content.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                document.getElementById('endorsement-modal').classList.remove('visible');
+            }, 200);
+        }
+
+        // Close modal on outside click
+        document.getElementById('endorsement-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEndorsement();
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Tab Logic
             const tabs = document.querySelectorAll('.tab-button');
             const contents = document.querySelectorAll('.tab-content');
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    const target = document.getElementById(tab.dataset.tab);
+                    const targetId = tab.dataset.tab;
+                    const targetContent = document.getElementById(targetId);
 
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-
-                    contents.forEach(c => c.classList.remove('active', 'visible'));
+                    // Deactivate all
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
+                        t.classList.add('text-[#5f6368]', 'dark:text-[#9aa0a6]', 'hover:bg-[#f1f3f4]', 'dark:hover:bg-[#3c4043]');
+                    });
                     
-                    target.classList.add('active');
-                    // Timeout to allow the display property to change before adding the visible class for the transition
+                    // Activate current
+                    tab.classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]', 'hover:bg-[#f1f3f4]', 'dark:hover:bg-[#3c4043]');
+                    tab.classList.add('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
+
+                    // Hide ALL contents immediately
+                    contents.forEach(c => {
+                        c.classList.remove('active', 'visible');
+                        c.style.display = 'none'; // Force hide immediately
+                    });
+                    
+                    // Show target immediately
+                    targetContent.style.display = 'block';
+                    // Force reflow
+                    void targetContent.offsetWidth;
+                    
+                    targetContent.classList.add('active');
+                    // Add visible class next frame for opacity transition
                     setTimeout(() => {
-                        target.classList.add('visible');
-                    }, 50);
+                        targetContent.classList.add('visible');
+                    }, 10);
                 });
             });
-            
-            // Simple fade-in animation on scroll for initial load
-            const faders = document.querySelectorAll('.fade-in');
-            const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.add('visible');
-                    appearOnScroll.unobserve(entry.target);
-                });
-            }, appearOptions);
 
-            faders.forEach(fader => {
-                appearOnScroll.observe(fader);
-            });
-
-            // Calculate and display age
-            function calculateAge() {
-                const birthDate = new Date('1995-04-11');
-                const today = new Date();
-                let age = today.getFullYear() - birthDate.getFullYear();
-                const m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
-                const ageTooltip = document.getElementById('age-tooltip');
-                if(ageTooltip) {
-                    ageTooltip.innerHTML = `<p>${age} years old</p><svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon></svg>`;
-                }
+            // Set initial active tab style explicitly for Tailwind classes
+            const initialTab = document.querySelector('.tab-button.active');
+            if(initialTab) {
+                initialTab.classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
+                initialTab.classList.add('bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
             }
-            calculateAge();
 
-            // Passcode logic
-            const passcodeButton = document.getElementById('passcode-submit');
-            const passcodeInput = document.getElementById('passcode-input');
-            const lockedContent = document.getElementById('locked-content');
-            const unlockedContent = document.getElementById('unlocked-content');
-            const errorMessage = document.getElementById('error-message');
+            // Age Calculation
+            const birthDate = new Date('1995-04-11');
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            const ageTooltip = document.getElementById('age-tooltip');
+            if(ageTooltip) ageTooltip.textContent = `${age} Years Old`;
+
+            // Password Logic
             const correctPasscode = "9677480837";
-
-            const checkPasscode = () => {
-                if (passcodeInput.value === correctPasscode) {
-                    lockedContent.style.display = 'none';
-                    unlockedContent.classList.remove('hidden');
+            const btn = document.getElementById('passcode-submit');
+            const input = document.getElementById('passcode-input');
+            const errorMsg = document.getElementById('error-message');
+            
+            const unlock = () => {
+                if(input.value === correctPasscode) {
+                    document.getElementById('locked-content').style.display = 'none';
+                    document.getElementById('unlocked-content').classList.remove('hidden');
                 } else {
-                    errorMessage.classList.remove('hidden');
-                    passcodeInput.value = '';
-                    passcodeInput.focus();
+                    errorMsg.classList.remove('hidden');
+                    input.classList.add('border-[#EA4335]', 'ring-2', 'ring-[#EA4335]/20');
+                    setTimeout(() => {
+                        input.classList.remove('border-[#EA4335]', 'ring-2', 'ring-[#EA4335]/20');
+                    }, 2000);
                 }
             };
+            btn.addEventListener('click', unlock);
+            input.addEventListener('keypress', (e) => e.key === 'Enter' && unlock());
 
-            passcodeButton.addEventListener('click', checkPasscode);
-            passcodeInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    checkPasscode();
-                }
-            });
-
-            // Immediate Family Logic
-            const familyButtons = document.querySelectorAll('.family-member-btn');
-            const familyDetails = document.querySelectorAll('.family-details-panel');
-
-            familyButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    familyButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    const targetId = button.dataset.target;
-                    familyDetails.forEach(panel => {
-                        if (panel.id === targetId) {
-                            panel.classList.add('active');
-                        } else {
-                            panel.classList.remove('active');
-                        }
+            // Family Switching
+            const familyBtns = document.querySelectorAll('.family-member-btn');
+            const familyPanels = document.querySelectorAll('.family-details-panel');
+            
+            familyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    familyBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
+                        b.querySelector('i').classList.remove('text-[#4285F4]', 'dark:text-[#8ab4f8]');
+                        b.querySelector('i').classList.add('text-[#5f6368]', 'dark:text-[#9aa0a6]');
                     });
+                    btn.classList.add('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
+                    btn.querySelector('i').classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
+                    btn.querySelector('i').classList.add('text-[#4285F4]', 'dark:text-[#8ab4f8]');
+                    
+                    const target = document.getElementById(btn.dataset.target);
+                    familyPanels.forEach(p => p.classList.remove('active'));
+                    target.classList.add('active');
                 });
             });
 
-            // Slideshow Logic
-            const slidesContainer = document.getElementById('slideshow-container');
-            if (slidesContainer) {
-                const slides = slidesContainer.querySelectorAll('.slideshow-item');
-                const indicators = slidesContainer.querySelectorAll('.slideshow-indicator');
-                const prevButton = document.getElementById('prev-slide');
-                const nextButton = document.getElementById('next-slide');
-                let currentSlide = 0;
-
-                const showSlide = (index) => {
-                    slides.forEach((slide, i) => {
-                        slide.classList.toggle('hidden', i !== index);
-                    });
-                    indicators.forEach((indicator, i) => {
-                        indicator.classList.toggle('bg-blue-800', i === index);
-                        indicator.classList.toggle('bg-gray-300', i !== index);
-                        indicator.setAttribute('aria-current', i === index ? 'true' : 'false');
-                    });
-                    currentSlide = index;
-                };
-
-                if(slides.length > 0) {
-                    prevButton.addEventListener('click', () => {
-                        showSlide((currentSlide - 1 + slides.length) % slides.length);
-                    });
-
-                    nextButton.addEventListener('click', () => {
-                        showSlide((currentSlide + 1) % slides.length);
-                    });
-
-                    indicators.forEach((indicator, index) => {
-                        indicator.addEventListener('click', () => showSlide(index));
-                    });
-
-                    showSlide(0); // Initialize
-                }
+            // Set initial family button state
+            const initialFamBtn = document.querySelector('.family-member-btn.active');
+            if(initialFamBtn) {
+                initialFamBtn.classList.add('bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
+                initialFamBtn.querySelector('i').classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
+                initialFamBtn.querySelector('i').classList.add('text-[#4285F4]', 'dark:text-[#8ab4f8]');
             }
         });
     </script>
 </body>
 </html>
-
