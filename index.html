@@ -23,20 +23,183 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Product Sans', 'Google Sans', 'Open Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                        sans: ['Space Grotesk', 'Sora', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                        display: ['Sora', 'Space Grotesk', 'ui-sans-serif', 'system-ui'],
                     }
                 }
             }
         }
     </script>
-    <!-- Importing Product Sans and Google Sans -->
-    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
+    <!-- Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg: #e9eef5;
+            --bg-2: #f6f8fb;
+            --ink: #0f172a;
+            --muted: #475569;
+            --accent: #0ea5e9;
+            --accent-2: #14b8a6;
+            --accent-3: #f97316;
+            --glass: rgba(255, 255, 255, 0.58);
+            --glass-strong: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.42);
+            --glass-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
+            --glass-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.12);
+        }
+
+        .dark {
+            --bg: #0b1220;
+            --bg-2: #0f172a;
+            --ink: #e2e8f0;
+            --muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.55);
+            --glass-strong: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(148, 163, 184, 0.28);
+            --glass-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+            --glass-shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.35);
+        }
+
         body {
-            font-family: 'Product Sans', 'Google Sans', sans-serif;
+            font-family: 'Space Grotesk', 'Sora', sans-serif;
+            color: var(--ink);
+            background: radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.18), transparent 45%),
+                        radial-gradient(circle at 80% 10%, rgba(20, 184, 166, 0.18), transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.15), transparent 35%),
+                        linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
+            overflow-x: hidden;
+            overflow-y: scroll;
             transition: background-color 0.3s, color 0.3s;
+        }
+
+        html {
+            scrollbar-gutter: stable;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Sora', 'Space Grotesk', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .page-bg .orb {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 999px;
+            filter: blur(10px);
+            opacity: 0.6;
+        }
+        .page-bg .orb-1 {
+            top: -120px;
+            left: -120px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.55), transparent 60%);
+        }
+        .page-bg .orb-2 {
+            top: 10%;
+            right: -140px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.55), transparent 60%);
+        }
+        .page-bg .orb-3 {
+            bottom: -140px;
+            left: 35%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.45), transparent 60%);
+        }
+
+        .page-shell {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 16px 64px;
+            display: grid;
+            grid-template-columns: minmax(240px, 320px) 1fr;
+            gap: 28px;
+        }
+
+        .main-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 24px;
+            align-self: start;
+            padding: 20px;
+            max-height: calc(100vh - 48px);
+            overflow-y: scroll;
+            scrollbar-gutter: stable;
+        }
+
+        .sidebar-section + .sidebar-section {
+            margin-top: 18px;
+        }
+
+        .sidebar-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-footer {
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .material-card {
+            background: var(--glass) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 1.5rem;
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            box-shadow: var(--glass-shadow-soft);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .material-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .material-card .bg-white {
+            background: var(--glass-strong) !important;
+            border-color: var(--glass-border) !important;
+        }
+
+        .glass-chip {
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            color: var(--ink);
         }
 
         /* Custom Scrollbar */
@@ -48,17 +211,17 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #bdc1c6;
+            background: rgba(15, 23, 42, 0.18);
             border-radius: 4px;
         }
         .dark ::-webkit-scrollbar-thumb {
-            background: #5f6368;
+            background: rgba(148, 163, 184, 0.3);
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #9aa0a6;
+            background: rgba(15, 23, 42, 0.3);
         }
 
-        /* Animations */
+        /* Tabs */
         .tab-content {
             display: none;
             opacity: 0;
@@ -73,27 +236,32 @@
             transform: translateY(0);
         }
 
-        /* Base Card Styling with Borders for Light Mode */
-        .material-card {
-            background-color: #ffffff; /* White in light mode */
-            border: 1px solid #e5e7eb; /* Light gray border for light mode */
-            border-radius: 1.5rem; /* rounded-3xl */
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        /* Dark Mode Overrides for Cards */
-        .dark .material-card {
-            background-color: #303134;
-            border-color: #5f6368;
-        }
-
-        .material-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        .tab-button {
+            width: 100%;
+            text-align: left;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--muted);
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .dark .material-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(255, 255, 255, 0.05);
+        .tab-button:hover {
+            background: var(--glass-strong);
+            color: var(--ink);
+            border-color: var(--glass-border);
+        }
+
+        .tab-button.is-active {
+            background: var(--glass-strong);
+            color: var(--ink);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: var(--glass-shadow-soft);
         }
 
         /* Tooltip */
@@ -130,55 +298,51 @@
             position: absolute;
         }
         .theme-toggle-label {
-            width: 50px;
-            height: 26px;
-            background-color: #202124;
+            width: 52px;
+            height: 28px;
+            background-color: var(--glass);
             border-radius: 50px;
             position: relative;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px;
-            border: 1px solid #5f6368;
+            padding: 6px;
+            border: 1px solid var(--glass-border);
         }
         .theme-toggle-checkbox:checked + .theme-toggle-label {
-            background-color: #f1f3f4;
-            border-color: #dadce0;
+            background-color: rgba(15, 23, 42, 0.75);
         }
         .theme-toggle-ball {
             width: 20px;
             height: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             position: absolute;
-            top: 2px;
-            left: 2px;
+            top: 3px;
+            left: 3px;
             border-radius: 50%;
             transition: transform 0.2s linear;
         }
         .theme-toggle-checkbox:checked + .theme-toggle-label .theme-toggle-ball {
             transform: translateX(24px);
-            background-color: #4285F4;
+            background-color: #0ea5e9;
         }
-        .fa-sun { color: #f39c12; }
-        .fa-moon { color: #f1c40f; }
-        
-        .dark .bg-surface { background-color: #303134; }
-        .light .bg-surface { background-color: #ffffff; }
-        
+        .fa-sun { color: #f59e0b; }
+        .fa-moon { color: #38bdf8; }
+
         /* Metric Highlight */
         .highlight-metric {
-            color: #1967d2;
+            color: #0ea5e9;
             font-weight: 700;
-            background-color: #e8f0fe;
+            background-color: rgba(14, 165, 233, 0.12);
             padding: 0 4px;
             border-radius: 4px;
         }
         .dark .highlight-metric {
-            color: #8ab4f8;
-            background-color: rgba(66, 133, 244, 0.2);
+            color: #7dd3fc;
+            background-color: rgba(14, 165, 233, 0.2);
         }
-        
+
         /* Medalist Hover Card */
         .medalist-trigger:hover .medalist-card {
             visibility: visible;
@@ -191,8 +355,8 @@
             transform: translateY(10px) translateX(-50%);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        /* Family Panel Animation - Strict Separation */
+
+        /* Family Panel Animation */
         .family-details-panel {
             display: none;
             opacity: 0;
@@ -201,126 +365,166 @@
         .family-details-panel.active {
             display: block;
         }
+        .family-member-btn.is-active {
+            background: var(--glass-strong);
+            border-color: rgba(14, 165, 233, 0.4);
+            color: var(--ink);
+        }
+        .family-member-btn i {
+            color: var(--muted);
+        }
+        .family-member-btn.is-active i {
+            color: var(--accent);
+        }
+
         @keyframes fadeIn {
             to { opacity: 1; }
         }
+
+        .status-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+            animation: pulse 1.4s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 1024px) {
+            .page-shell {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+        }
     </style>
 </head>
-<body class="antialiased min-h-screen bg-[#f0f2f5] text-[#202124] dark:bg-[#202124] dark:text-[#e8eaed] transition-colors duration-300">
+<body class="antialiased min-h-screen transition-colors duration-300">
+    <div class="page-bg">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+    </div>
 
-    <div class="max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-10">
-        
-        <!-- Header & Theme Toggle -->
-        <div class="flex justify-end mb-4">
-            <div class="theme-toggle-wrapper">
-                <input type="checkbox" class="theme-toggle-checkbox" id="theme-toggle" checked>
-                <label for="theme-toggle" class="theme-toggle-label">
-                    <i class="fas fa-moon text-xs text-[#e8eaed]"></i>
-                    <i class="fas fa-sun text-xs text-[#fbbc05]"></i>
-                    <div class="theme-toggle-ball"></div>
-                </label>
+    <div class="page-shell">
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Navigation</div>
+                <nav class="flex flex-col gap-2">
+                    <button class="tab-button is-active" data-tab="home">Home</button>
+                    <button class="tab-button" data-tab="experience">Experience</button>
+                    <button class="tab-button" data-tab="education">Education</button>
+                    <button class="tab-button" data-tab="internship">Internship</button>
+                    <button class="tab-button" data-tab="skills">Skills</button>
+                    <button class="tab-button" data-tab="projects">Projects</button>
+                    <button class="tab-button" data-tab="honours">Honours</button>
+                    <button class="tab-button" data-tab="tools">Tools</button>
+                    <button class="tab-button" data-tab="personal">Personal</button>
+                    <button class="tab-button" data-tab="abstracted"><i class="fas fa-lock text-xs"></i>Private</button>
+                </nav>
             </div>
-        </div>
 
-        <!-- Hero Section -->
-        <header class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-center">
-            <!-- Profile Image & Socials -->
-            <div class="lg:col-span-4 flex flex-col items-center lg:items-start space-y-6">
-                <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-google-blue via-google-red to-google-yellow rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <img src="profile-picture.png" alt="Manikandan Ramanathan" class="relative w-48 h-48 rounded-[1.8rem] object-cover shadow-xl border-4 border-white dark:border-[#303134]">
-                </div>
-                
-                <div class="flex flex-wrap justify-center lg:justify-start gap-3">
-                    <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#0077b5] dark:text-[#e8eaed] shadow-sm hover:bg-[#e8f0fe] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-linkedin-in text-lg"></i></a>
-                    <a href="https://www.facebook.com/manikandan.ramanathan.2025" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#1877f2] dark:text-[#e8eaed] shadow-sm hover:bg-[#e8f0fe] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-facebook-f text-lg"></i></a>
-                    <a href="https://www.instagram.com/manikandan_ramanathan/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#e4405f] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-instagram text-lg"></i></a>
-                    <a href="https://x.com/maniramanathn" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-black dark:text-[#e8eaed] shadow-sm hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-twitter text-lg"></i></a>
-                    <a href="https://www.youtube.com/@manikandan_ramanathan" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#ff0000] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-youtube text-lg"></i></a>
-                    <a href="https://open.spotify.com/artist/7gmDLrdzYULGigAvdMLkJq" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#1db954] dark:text-[#e8eaed] shadow-sm hover:bg-[#e6f4ea] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-spotify text-lg"></i></a>
-                    <a href="https://music.apple.com/ca/artist/manikandan-ramanathan/1768927043" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-black dark:text-[#e8eaed] shadow-sm hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fab fa-apple text-lg"></i></a>
-                    <a href="https://sneeka.substack.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-[#303134] text-[#ff6719] dark:text-[#e8eaed] shadow-sm hover:bg-[#fce8e6] dark:hover:bg-[#3c4043] transition-colors border border-gray-200 dark:border-gray-600"><i class="fas fa-pen-nib text-lg"></i></a>
+            <div class="sidebar-section">
+                <div class="status-line">
+                    <span class="status-dot"></span>
+                    <span>All information are updated in January 2026</span>
                 </div>
             </div>
 
-            <!-- Intro Text -->
-            <div class="lg:col-span-8 text-center lg:text-left space-y-6">
-                <div>
-                    <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-[#202124] dark:text-[#e8eaed]">Manikandan <br class="hidden md:block" /> Ramanathan</h1>
-                    <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#1967d2] dark:bg-[#4285F4]/20 dark:text-[#8ab4f8] font-medium text-sm mt-2 border border-google-blue/10 dark:border-transparent">
-                        <i class="fas fa-code mr-2"></i> Senior Software Engineer | ML & Cloud
+            <div class="sidebar-footer">© Designed by Manikandan Ramanathan 2026</div>
+        </aside>
+
+        <div class="main-content">
+            <div class="main-shell">
+
+        <div id="compact-header" class="glass-panel p-4 mb-6 hidden">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="profile-picture.png" alt="Manikandan Ramanathan" class="w-12 h-12 rounded-xl object-cover border border-white/40 shadow-sm">
+                    <div>
+                        <p class="text-lg font-semibold text-[#202124] dark:text-[#e8eaed]">Manikandan Ramanathan</p>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6]">Senior Software Engineer | ML & Cloud</p>
                     </div>
                 </div>
-
-                <div class="flex flex-wrap justify-center lg:justify-start gap-4 text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6]">
-                    <div class="relative info-card group cursor-pointer bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#4285F4] dark:hover:border-[#8ab4f8] transition">
-                        <i class="fas fa-envelope text-[#ea4335]"></i>
-                        <a href="mailto:maniramanathan@icloud.com" class="dark:text-[#e8eaed]">maniramanathan@icloud.com</a>
-                        <div class="info-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] text-xs rounded-lg py-2 px-3 shadow-xl z-10">
-                            Response time: 1-2 days
-                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-[#202124] dark:border-t-[#e8eaed]"></div>
-                        </div>
+                <div class="flex flex-wrap items-center gap-3 md:ml-auto">
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#0077b5] shadow-sm border border-white/30"><i class="fab fa-linkedin-in text-xs"></i></a>
+                        <a href="https://www.facebook.com/maxximitha" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#1877f2] shadow-sm border border-white/30"><i class="fab fa-facebook-f text-xs"></i></a>
+                        <a href="https://www.instagram.com/maxximitha/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#e4405f] shadow-sm border border-white/30"><i class="fab fa-instagram text-xs"></i></a>
+                        <a href="https://x.com/maxximitha" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-black dark:text-[#e8eaed] shadow-sm border border-white/30"><i class="fab fa-twitter text-xs"></i></a>
+                        <a href="https://www.youtube.com/@manikandan.ramanathan.2025" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#ff0000] shadow-sm border border-white/30"><i class="fab fa-youtube text-xs"></i></a>
                     </div>
-                    <div class="bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#34a853] dark:hover:border-[#81c995] transition">
-                        <i class="fas fa-phone-alt text-[#34a853]"></i>
-                        <span class="dark:text-[#e8eaed]">+91 90XXX XXX55</span>
-                    </div>
-                    <div class="bg-white dark:bg-[#303134] px-4 py-2 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368] flex items-center gap-2 hover:border-[#fbbc05] dark:hover:border-[#fdd663] transition">
-                        <i class="fas fa-map-marker-alt text-[#fbbc05]"></i>
-                        <span class="dark:text-[#e8eaed]">Bengaluru, India</span>
-                    </div>
+                    <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="glass-chip px-4 py-2 text-xs font-semibold rounded-full text-[#0ea5e9] dark:text-[#7dd3fc]">View Resume</a>
                 </div>
-
-                <p class="text-lg text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed max-w-3xl">
-                    Passionate Software and ML Model Development & Design Engineer with over 7 years of experience. Expert in Go, Python, and C++, building scalable cloud infrastructure on AWS and Kubernetes.
-                </p>
-
-                <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-full text-white bg-[#1a73e8] hover:bg-[#185abc] dark:bg-[#8ab4f8] dark:text-[#202124] dark:hover:bg-[#aecbfa] transition shadow-lg shadow-blue-900/20 active:scale-95 border border-transparent">
-                    <i class="fas fa-file-alt mr-2"></i> View Resume
-                </a>
             </div>
-        </header>
-
-        <!-- Highlights (Material Cards) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <div class="material-card p-6 text-center border-l-4 border-[#4285F4] shadow-sm">
-                <h3 class="text-3xl font-bold text-[#4285F4] dark:text-[#8ab4f8]">7+</h3>
-                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Years Experience</p>
-            </div>
-            <div class="material-card p-6 text-center border-l-4 border-[#EA4335] shadow-sm">
-                <h3 class="text-3xl font-bold text-[#EA4335] dark:text-[#f28b82]">103K+</h3>
-                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Lines Coded</p>
-            </div>
-            <div class="material-card p-6 text-center border-l-4 border-[#FBBC05] shadow-sm">
-                <h3 class="text-3xl font-bold text-[#FBBC05] dark:text-[#fdd663]">M.Tech</h3>
-                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Embedded Systems</p>
-            </div>
-            <div class="material-card p-6 text-center border-l-4 border-[#34A853] shadow-sm">
-                <h3 class="text-3xl font-bold text-[#34A853] dark:text-[#81c995]">10+</h3>
-                <p class="text-sm font-medium text-[#5f6368] dark:text-[#bdc1c6] mt-1">Major Awards</p>
-            </div>
-        </div>
-
-        <!-- Sticky Navigation -->
-        <div class="sticky top-4 z-40 mb-8 overflow-x-auto pb-4 -mx-4 px-4 no-scrollbar">
-            <nav class="bg-white/90 dark:bg-[#303134]/90 backdrop-blur-md p-1.5 rounded-full shadow-lg border border-[#dadce0] dark:border-[#5f6368] inline-flex min-w-full md:min-w-0">
-                <button class="tab-button active px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap dark:text-[#e8eaed]" data-tab="experience">Experience</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="education">Education</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="internship">Internship</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="skills">Skills</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="projects">Projects</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="honours">Honours</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="tools">Tools</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="personal">Personal</button>
-                <button class="tab-button px-6 py-2.5 rounded-full text-sm font-medium text-[#5f6368] dark:text-[#9aa0a6] hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] whitespace-nowrap" data-tab="abstracted"><i class="fas fa-lock text-xs mr-2"></i>Private</button>
-            </nav>
         </div>
 
         <!-- Main Content Area -->
         <main class="min-h-[500px]">
+
+            <!-- Home Tab -->
+            <div id="home" class="tab-content active visible">
+                <section class="glass-panel p-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-4 flex flex-col items-center lg:items-start space-y-6">
+                            <div class="relative group">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-google-blue via-google-red to-google-yellow rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                                <img src="profile-picture.png" alt="Manikandan Ramanathan" class="relative w-48 h-48 rounded-[1.8rem] object-cover shadow-xl border-4 border-white/60">
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start gap-3">
+                                <a href="https://www.linkedin.com/in/narayananrama/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#0077b5] shadow-sm border border-white/40"><i class="fab fa-linkedin-in text-lg"></i></a>
+                                <a href="https://www.facebook.com/maxximitha" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#1877f2] shadow-sm border border-white/40"><i class="fab fa-facebook-f text-lg"></i></a>
+                                <a href="https://www.instagram.com/maxximitha/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#e4405f] shadow-sm border border-white/40"><i class="fab fa-instagram text-lg"></i></a>
+                                <a href="https://x.com/maxximitha" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-black dark:text-[#e8eaed] shadow-sm border border-white/40"><i class="fab fa-twitter text-lg"></i></a>
+                                <a href="https://www.youtube.com/@manikandan.ramanathan.2025" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#ff0000] shadow-sm border border-white/40"><i class="fab fa-youtube text-lg"></i></a>
+                                <a href="https://open.spotify.com/artist/7gmDLrdzYULGigAvdMLkJq" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#1db954] shadow-sm border border-white/40"><i class="fab fa-spotify text-lg"></i></a>
+                                <a href="https://music.apple.com/ca/artist/manikandan-ramanathan/1768927043" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-black dark:text-[#e8eaed] shadow-sm border border-white/40"><i class="fab fa-apple text-lg"></i></a>
+                                <a href="https://sneeka.substack.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 text-[#ff6719] shadow-sm border border-white/40"><i class="fas fa-pen-nib text-lg"></i></a>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-8 text-center lg:text-left space-y-6">
+                            <div>
+                                <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-[#202124] dark:text-[#e8eaed]">Manikandan Ramanathan</h1>
+                                <div class="glass-chip inline-flex items-center px-4 py-1.5 rounded-full text-[#0ea5e9] dark:text-[#7dd3fc] font-medium text-sm mt-2 border border-transparent">
+                                    <i class="fas fa-code mr-2"></i> Senior Software Engineer | ML & Cloud
+                                </div>
+                            </div>
+                            <p class="text-lg text-[#5f6368] dark:text-[#bdc1c6] leading-relaxed max-w-3xl">
+                                Passionate Software and ML Model Development & Design Engineer with over 7 years of experience. Expert in Go, Python, and C++, building scalable cloud infrastructure on AWS and Kubernetes.
+                            </p>
+                            <div class="flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+                                <a href="Manikandan Rm - Resume (09-2025).pdf" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-full text-white bg-[#1a73e8] hover:bg-[#185abc] dark:bg-[#8ab4f8] dark:text-[#202124] dark:hover:bg-[#aecbfa] transition shadow-lg shadow-blue-900/20 active:scale-95 border border-transparent">
+                                    <i class="fas fa-file-alt mr-2"></i> View Resume
+                                </a>
+                                <button data-tab-link="tools" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-full text-[#0ea5e9] dark:text-[#7dd3fc] bg-white/70 dark:bg-white/10 border border-white/30 hover:bg-white/90 dark:hover:bg-white/20 transition shadow-lg">
+                                    <i class="fas fa-screwdriver-wrench mr-2"></i> View Tools
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
             
             <!-- Experience Tab -->
-            <div id="experience" class="tab-content active visible">
+            <div id="experience" class="tab-content">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <div class="lg:col-span-8 space-y-6">
                         
@@ -554,7 +758,7 @@
                             <span class="text-[#5f6368] dark:text-[#bdc1c6] text-sm font-medium">CGPA: <span class="text-[#202124] dark:text-[#e8eaed] font-bold">9.40</span> <i class="fas fa-medal text-[#fbbc05] ml-1"></i></span>
                         </div>
                         <!-- Silver Medalist Hover Card - Fixed position -->
-                        <div class="medalist-card absolute top-full left-1/2 mt-4 w-64 bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] p-4 rounded-2xl shadow-xl text-left z-50 border border-gray-600 dark:border-transparent">
+                        <div class="medalist-card absolute bottom-full left-1/2 mb-4 w-64 bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] p-4 rounded-2xl shadow-xl text-left z-50 border border-gray-600 dark:border-transparent">
                             <div class="flex items-center gap-3 mb-2">
                                 <div class="w-8 h-8 rounded-full bg-[#fbbc05] flex items-center justify-center text-[#202124]"><i class="fas fa-medal"></i></div>
                                 <p class="font-bold text-sm">Silver Medalist</p>
@@ -891,7 +1095,8 @@
                         </div>
                      </div>
                      <div class="material-card p-6 bg-white dark:bg-[#303134] rounded-3xl shadow-sm">
-                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] mb-4 border-b border-[#dadce0] dark:border-[#5f6368] pb-2">Impact</h3>
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] mb-2 border-b border-[#dadce0] dark:border-[#5f6368] pb-2">Impact</h3>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mb-4">Experience: 7+ years • Lines coded: 103K+ • Degree: M.Tech • Major awards: 10+</p>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="bg-[#f1f3f4] dark:bg-[#202124] p-3 rounded-xl text-center">
                                 <p class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">99.9%</p>
@@ -918,48 +1123,48 @@
             <div id="tools" class="tab-content">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Tool 1 -->
-                    <a href="https://maniramanathan.co.in/qr-gen/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#4285F4] dark:hover:border-[#8ab4f8] cursor-pointer no-underline">
+                    <a href="http://maniramanathan.co.in/tool-helm/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#4285F4] dark:hover:border-[#8ab4f8] cursor-pointer no-underline">
                         <div class="w-16 h-16 rounded-full bg-[#e8f0fe] dark:bg-[#4285F4]/20 flex items-center justify-center text-[#1967d2] dark:text-[#8ab4f8] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-qrcode"></i>
+                            <i class="fas fa-ship"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">QR Gen</h3>
-                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Generate QR codes instantly for links and text.</p>
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Helm Toolkit</h3>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Build, lint, and package Helm charts fast.</p>
                     </a>
 
                     <!-- Tool 2 -->
-                    <a href="https://maniramanathan.co.in/regex-tester/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#EA4335] dark:hover:border-[#f28b82] cursor-pointer no-underline">
+                    <a href="http://maniramanathan.co.in/tool-engineeringtools/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#EA4335] dark:hover:border-[#f28b82] cursor-pointer no-underline">
                         <div class="w-16 h-16 rounded-full bg-[#fce8e6] dark:bg-[#EA4335]/20 flex items-center justify-center text-[#c5221f] dark:text-[#f28b82] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-code"></i>
+                            <i class="fas fa-screwdriver-wrench"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Regex Tester</h3>
-                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Test and validate regular expressions.</p>
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Engineering Tools</h3>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Handy calculators and utilities for engineers.</p>
                     </a>
 
                     <!-- Tool 3 -->
-                    <a href="https://maniramanathan.co.in/json-parser/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#FBBC05] dark:hover:border-[#fdd663] cursor-pointer no-underline">
+                    <a href="http://maniramanathan.co.in/tool-k8s/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#FBBC05] dark:hover:border-[#fdd663] cursor-pointer no-underline">
                         <div class="w-16 h-16 rounded-full bg-[#fef7e0] dark:bg-[#FBBC05]/20 flex items-center justify-center text-[#b06000] dark:text-[#fdd663] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-file-code"></i>
+                            <i class="fas fa-cubes"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">JSON Utility</h3>
-                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Parse, format, and validate JSON data.</p>
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Kubernetes Helper</h3>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">K8s insights, YAML helpers, and shortcuts.</p>
                     </a>
 
                     <!-- Tool 4 -->
-                    <a href="https://maniramanathan.co.in/tax-calculator/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#34A853] dark:hover:border-[#81c995] cursor-pointer no-underline">
+                    <a href="http://maniramanathan.co.in/tool-taxcalculator/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#34A853] dark:hover:border-[#81c995] cursor-pointer no-underline">
                         <div class="w-16 h-16 rounded-full bg-[#e6f4ea] dark:bg-[#34A853]/20 flex items-center justify-center text-[#137333] dark:text-[#81c995] text-2xl mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-calculator"></i>
                         </div>
                         <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Tax Calculator</h3>
-                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Calculate tax liabilities efficiently.</p>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Estimate tax liabilities with clarity.</p>
                     </a>
 
                     <!-- Tool 5 -->
-                    <a href="https://maniramanathan.co.in/sudoku/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#4285F4] dark:hover:border-[#8ab4f8] cursor-pointer no-underline">
+                    <a href="https://maniramanathan.co.in/json-parser/" target="_blank" class="material-card p-8 flex flex-col items-center justify-center text-center bg-white dark:bg-[#303134] rounded-3xl shadow-sm hover:shadow-md transition group border border-transparent hover:border-[#4285F4] dark:hover:border-[#8ab4f8] cursor-pointer no-underline">
                         <div class="w-16 h-16 rounded-full bg-[#e8f0fe] dark:bg-[#4285F4]/20 flex items-center justify-center text-[#1967d2] dark:text-[#8ab4f8] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-th"></i>
+                            <i class="fas fa-brackets-curly"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Sudoku</h3>
-                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Play and solve Sudoku puzzles online.</p>
+                        <h3 class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">JSON Parser</h3>
+                        <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Parse, format, and validate JSON data.</p>
                     </a>
                 </div>
             </div>
@@ -967,6 +1172,24 @@
             <!-- Personal Tab -->
             <div id="personal" class="tab-content">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Contact -->
+                    <div class="material-card p-6 info-card cursor-help relative group shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Email</p>
+                        <a href="mailto:maniramanathan@icloud.com" class="text-lg font-bold text-[#202124] dark:text-[#e8eaed] break-all">maniramanathan@icloud.com</a>
+                        <div class="info-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-[#202124] dark:bg-[#e8eaed] text-white dark:text-[#202124] text-xs rounded-lg py-2 px-3 shadow-xl z-10">
+                            Response time: 1-2 days
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-[#202124] dark:border-t-[#e8eaed]"></div>
+                        </div>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Phone</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">+91 90XXX XXX55</p>
+                    </div>
+                    <div class="material-card p-6 shadow-sm">
+                        <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Location</p>
+                        <p class="text-lg font-bold text-[#202124] dark:text-[#e8eaed]">Bengaluru, India</p>
+                    </div>
+
                     <!-- Row 1 -->
                     <div class="material-card p-6 shadow-sm">
                         <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Name</p>
@@ -1014,36 +1237,35 @@
 
             <!-- Private Tab -->
             <div id="abstracted" class="tab-content">
-                <div id="locked-content" class="relative overflow-hidden rounded-[2rem] material-card h-96 bg-white dark:bg-[#303134] shadow-sm">
-                    <!-- Blurred Content Background -->
-                    <div class="absolute inset-0 p-8 filter blur-md bg-[#f1f3f4] dark:bg-[#202124] flex items-center justify-center opacity-50">
-                        <div class="text-6xl text-[#bdc1c6] font-bold">CONFIDENTIAL DATA</div>
-                    </div>
-                    
-                    <!-- Lock Interface -->
-                    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 bg-white/60 dark:bg-[#303134]/60 backdrop-blur-sm px-4 text-center">
-                        <div class="w-16 h-16 bg-white dark:bg-[#202124] rounded-full shadow-lg flex items-center justify-center mb-4 text-2xl text-[#5f6368] dark:text-[#9aa0a6]">
+                <div id="locked-content" class="relative overflow-hidden rounded-[2rem] material-card p-8">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none"></div>
+                    <div class="relative z-10 max-w-xl mx-auto text-center space-y-5">
+                        <div class="w-16 h-16 bg-white/70 dark:bg-white/10 rounded-2xl shadow-lg flex items-center justify-center mx-auto text-2xl text-[#5f6368] dark:text-[#9aa0a6] border border-white/30">
                             <i class="fas fa-lock"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-[#202124] dark:text-[#e8eaed] mb-2">Protected Information</h3>
-                        
-                        <!-- Warning Message -->
-                        <div class="bg-[#fce8e6] dark:bg-[#5c2b29] border border-[#f28b82] rounded-xl p-4 mb-3 flex items-start gap-3 max-w-lg text-left shadow-sm">
-                            <i class="fas fa-exclamation-triangle text-[#EA4335] dark:text-[#f28b82] mt-1 shrink-0"></i>
-                            <p class="text-[#c5221f] dark:text-[#f6aea9] text-sm font-medium">Access Restricted: To view this confidential information, please input the required security credentials obtained from the authorized source.</p>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#202124] dark:text-[#e8eaed]">Private Vault</h3>
+                            <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Enter the access code to view confidential information.</p>
                         </div>
 
-                        <!-- Nagarathar Info Message -->
-                        <div class="bg-[#e6f4ea] dark:bg-[#34A853]/20 border border-[#34A853] dark:border-[#81c995] rounded-xl p-4 mb-6 flex items-start gap-3 max-w-lg text-left shadow-sm">
-                            <i class="fas fa-info-circle text-[#34A853] dark:text-[#81c995] mt-1 shrink-0"></i>
-                            <p class="text-[#137333] dark:text-[#81c995] text-sm font-medium">For visitors from Nagarathar community websites: Please obtain the access code by contacting the number provided in the contact section of this website.</p>
+                        <div class="grid gap-3">
+                            <div class="flex flex-col sm:flex-row items-center gap-3 justify-center">
+                                <input id="passcode-input" type="password" class="px-4 py-3 rounded-xl border border-white/30 bg-white/70 dark:bg-white/10 text-[#202124] dark:text-[#e8eaed] focus:border-[#38bdf8] focus:ring-2 focus:ring-[#38bdf8]/20 outline-none w-full sm:w-56 text-center tracking-widest transition" placeholder="••••••••">
+                                <button id="passcode-submit" class="bg-[#0ea5e9] hover:bg-[#0284c7] text-white px-6 py-3 rounded-xl font-bold transition shadow-lg w-full sm:w-auto">Unlock</button>
+                            </div>
+                            <p id="error-message" class="text-[#EA4335] dark:text-[#f28b82] text-xs font-bold hidden bg-[#fce8e6] dark:bg-[#5c2b29] px-3 py-1 rounded-full inline-flex mx-auto">Incorrect access code</p>
                         </div>
-                        
-                        <div class="flex gap-2 justify-center">
-                            <input id="passcode-input" type="password" class="px-4 py-3 rounded-xl border border-[#dadce0] dark:border-[#5f6368] bg-white dark:bg-[#202124] text-[#202124] dark:text-[#e8eaed] focus:border-[#4285F4] focus:ring-2 focus:ring-[#4285F4]/20 outline-none w-48 text-center tracking-widest transition" placeholder="••••••••">
-                            <button id="passcode-submit" class="bg-[#1a73e8] hover:bg-[#185abc] dark:bg-[#8ab4f8] dark:text-[#202124] dark:hover:bg-[#aecbfa] text-white px-6 py-3 rounded-xl font-bold transition shadow-lg">Proceed</button>
+
+                        <div class="grid gap-3 text-left text-xs">
+                            <div class="glass-chip rounded-xl p-3 flex items-start gap-2">
+                                <i class="fas fa-exclamation-triangle text-[#f97316] mt-0.5"></i>
+                                <p class="text-[#5f6368] dark:text-[#9aa0a6] font-medium">Access is restricted. Please use the security credentials provided by the authorized source.</p>
+                            </div>
+                            <div class="glass-chip rounded-xl p-3 flex items-start gap-2">
+                                <i class="fas fa-info-circle text-[#22c55e] mt-0.5"></i>
+                                <p class="text-[#5f6368] dark:text-[#9aa0a6] font-medium">Visitors from Nagarathar community sites can request the code via the contact number listed on this website.</p>
+                            </div>
                         </div>
-                        <p id="error-message" class="text-[#EA4335] dark:text-[#f28b82] text-xs mt-3 font-bold hidden bg-[#fce8e6] dark:bg-[#5c2b29] px-3 py-1 rounded-full">Incorrect access code</p>
                     </div>
                 </div>
 
@@ -1242,14 +1464,14 @@
                         <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-6">Family Details</h3>
                         <div class="grid md:grid-cols-3 gap-6">
                             <div class="md:col-span-1 space-y-2">
-                                <button class="family-member-btn active w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-ramanathan-v">
-                                    <i class="fas fa-user-tie mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ramanathan Viswanathan (Father)
+                                <button class="family-member-btn is-active w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-ramanathan-v">
+                                    <i class="fas fa-user-tie mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ramanathan Viswanathan
                                 </button>
                                 <button class="family-member-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-alamelu">
-                                    <i class="fas fa-user mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Alamelu Ramanathan (Mother)
+                                    <i class="fas fa-user mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Alamelu Ramanathan
                                 </button>
                                 <button class="family-member-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm transition-colors border border-transparent hover:bg-[#f1f3f4] dark:hover:bg-[#3c4043] dark:text-[#e8eaed]" data-target="family-ganesh">
-                                    <i class="fas fa-user-graduate mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ganesh Laxman Ramanathan (Brother)
+                                    <i class="fas fa-user-graduate mr-2 text-[#5f6368] dark:text-[#9aa0a6]"></i> Ganesh Laxman Ramanathan
                                 </button>
                             </div>
                             <!-- Separated Display Panels -->
@@ -1296,47 +1518,77 @@
                     </div>
 
                     <!-- Heritage & Roots Section -->
-                    <div class="material-card p-6 border border-[#FBBC05]/30 bg-[#fef7e0]/50 dark:bg-[#FBBC05]/10 shadow-sm">
-                        <h3 class="font-bold text-lg text-[#202124] dark:text-[#e8eaed] mb-4 flex items-center gap-2">
-                            <i class="fas fa-vihara text-[#b06000] dark:text-[#fdd663]"></i> Heritage & Roots
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <!-- Existing Cards -->
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Native</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Devakottai</p>
+                    <div class="material-card p-6 border border-[#FBBC05]/30 bg-[#fef7e0]/50 dark:bg-[#FBBC05]/10 shadow-sm relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none"></div>
+                        <div class="relative z-10">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
+                                <div>
+                                    <h3 class="font-bold text-xl text-[#202124] dark:text-[#e8eaed] flex items-center gap-2">
+                                        <i class="fas fa-vihara text-[#b06000] dark:text-[#fdd663]"></i> Heritage & Roots
+                                    </h3>
+                                    <p class="text-sm text-[#5f6368] dark:text-[#9aa0a6] mt-1">Ancestral origins, family lineage, and residences.</p>
+                                </div>
+                                <div class="glass-chip px-4 py-2 rounded-full text-xs font-semibold text-[#b06000] dark:text-[#fdd663]">
+                                    Cultural Lineage
+                                </div>
                             </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Temple</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Pillaiyarpatti</p>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 glass-panel p-5">
+                                    <div class="flex items-center gap-2 text-sm font-semibold text-[#202124] dark:text-[#e8eaed] mb-4">
+                                        <i class="fas fa-map-signs text-[#f59e0b]"></i> Origins
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div class="glass-chip p-4 rounded-2xl">
+                                            <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Native</p>
+                                            <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-base">Devakottai</p>
+                                        </div>
+                                        <div class="glass-chip p-4 rounded-2xl">
+                                            <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Temple</p>
+                                            <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-base">Pillaiyarpatti</p>
+                                        </div>
+                                        <div class="glass-chip p-4 rounded-2xl">
+                                            <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">House Vilasam</p>
+                                            <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-base">V.N.C.Rm House</p>
+                                        </div>
+                                        <div class="glass-chip p-4 rounded-2xl">
+                                            <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">House Name</p>
+                                            <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-sm">Seigon Chinniah Chettiar Veedu</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="glass-panel p-5 space-y-4">
+                                    <div class="flex items-center gap-2 text-sm font-semibold text-[#202124] dark:text-[#e8eaed]">
+                                        <i class="fas fa-house-chimney text-[#22c55e]"></i> Residences
+                                    </div>
+                                    <div class="glass-chip p-4 rounded-2xl">
+                                        <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Parent's Residence</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-base">Kangeyam, Tamilnadu</p>
+                                    </div>
+                                    <div class="glass-chip p-4 rounded-2xl">
+                                        <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Permanent Residence</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-base">Senjai, Karaikkudi</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">House Vilasam</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">V.N.C.Rm House</p>
-                            </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">House Name</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold text-sm">Seigon Chinniah Chettiar Veedu</p>
-                            </div>
-                            
-                            <!-- New Cards -->
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Paternal Grand Parents</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Mr Rm Viswanathan, Retd Manager IOB</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mrs. V Visalakshi</p>
-                            </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Maternal Grand Parents</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mr Rm Palaniappan</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-medium">Late Mr Pl Umayal</p>
-                            </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Parent's Residence</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Kangeyam, Tamilnadu</p>
-                            </div>
-                            <div class="bg-white dark:bg-[#202124] p-4 rounded-xl shadow-sm border border-[#dadce0] dark:border-[#5f6368]">
-                                <p class="text-xs text-[#5f6368] dark:text-[#9aa0a6] uppercase font-bold tracking-wider mb-1">Permanent Residence</p>
-                                <p class="text-[#202124] dark:text-[#e8eaed] font-bold">Senjai, Karaikkudi</p>
+
+                            <div class="glass-panel p-5 mt-6">
+                                <div class="flex items-center gap-2 text-sm font-semibold text-[#202124] dark:text-[#e8eaed] mb-4">
+                                    <i class="fas fa-people-roof text-[#38bdf8]"></i> Lineage
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="glass-chip p-4 rounded-2xl">
+                                        <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Paternal Grand Parents</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-semibold">Mr Rm Viswanathan, Retd Manager IOB</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-semibold">Late Mrs. V Visalakshi</p>
+                                    </div>
+                                    <div class="glass-chip p-4 rounded-2xl">
+                                        <p class="text-[11px] text-[#5f6368] dark:text-[#9aa0a6] uppercase tracking-wider font-bold">Maternal Grand Parents</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-semibold">Late Mr Rm Palaniappan</p>
+                                        <p class="text-[#202124] dark:text-[#e8eaed] text-sm font-semibold">Late Mr Pl Umayal</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1349,6 +1601,8 @@
             <p>© 2026 Manikandan Ramanathan. All rights reserved.</p>
         </footer>
 
+            </div>
+        </div>
     </div>
 
     <!-- Modal for Endorsements -->
@@ -1368,18 +1622,6 @@
     </div>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        
-        themeToggle.addEventListener('change', () => {
-            if (themeToggle.checked) {
-                html.classList.add('dark');
-            } else {
-                html.classList.remove('dark');
-            }
-        });
-
         // Modal Logic
         function openEndorsement(data) {
             document.getElementById('modal-text').textContent = `"${data.text}"`;
@@ -1427,47 +1669,55 @@
             // Tab Logic
             const tabs = document.querySelectorAll('.tab-button');
             const contents = document.querySelectorAll('.tab-content');
+            const compactHeader = document.getElementById('compact-header');
+
+            const updateCompactHeader = (tabId) => {
+                if (!compactHeader) return;
+                if (tabId === 'home') {
+                    compactHeader.classList.add('hidden');
+                } else {
+                    compactHeader.classList.remove('hidden');
+                }
+            };
+
+            const activateTab = (targetId) => {
+                const targetContent = document.getElementById(targetId);
+                const activeTab = document.querySelector(`.tab-button[data-tab="${targetId}"]`);
+                if (!targetContent || !activeTab) return;
+
+                tabs.forEach(t => t.classList.remove('is-active'));
+                activeTab.classList.add('is-active');
+
+                contents.forEach(c => {
+                    c.classList.remove('active', 'visible');
+                    c.style.display = 'none';
+                });
+
+                targetContent.style.display = 'block';
+                void targetContent.offsetWidth;
+
+                targetContent.classList.add('active');
+                setTimeout(() => {
+                    targetContent.classList.add('visible');
+                }, 10);
+
+                updateCompactHeader(targetId);
+            };
 
             tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const targetId = tab.dataset.tab;
-                    const targetContent = document.getElementById(targetId);
-
-                    // Deactivate all
-                    tabs.forEach(t => {
-                        t.classList.remove('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-                        t.classList.add('text-[#5f6368]', 'dark:text-[#9aa0a6]', 'hover:bg-[#f1f3f4]', 'dark:hover:bg-[#3c4043]');
-                    });
-                    
-                    // Activate current
-                    tab.classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]', 'hover:bg-[#f1f3f4]', 'dark:hover:bg-[#3c4043]');
-                    tab.classList.add('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-
-                    // Hide ALL contents immediately
-                    contents.forEach(c => {
-                        c.classList.remove('active', 'visible');
-                        c.style.display = 'none'; // Force hide immediately
-                    });
-                    
-                    // Show target immediately
-                    targetContent.style.display = 'block';
-                    // Force reflow
-                    void targetContent.offsetWidth;
-                    
-                    targetContent.classList.add('active');
-                    // Add visible class next frame for opacity transition
-                    setTimeout(() => {
-                        targetContent.classList.add('visible');
-                    }, 10);
-                });
+                tab.addEventListener('click', () => activateTab(tab.dataset.tab));
             });
 
-            // Set initial active tab style explicitly for Tailwind classes
-            const initialTab = document.querySelector('.tab-button.active');
-            if(initialTab) {
-                initialTab.classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
-                initialTab.classList.add('bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-            }
+            const initialTab = document.querySelector('.tab-button.is-active');
+            if(!initialTab && tabs[0]) tabs[0].classList.add('is-active');
+            updateCompactHeader(initialTab ? initialTab.dataset.tab : (tabs[0] && tabs[0].dataset.tab));
+
+            document.querySelectorAll('[data-tab-link]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    activateTab(link.dataset.tabLink);
+                });
+            });
 
             // Age Calculation
             const birthDate = new Date('1995-04-11');
@@ -1507,28 +1757,17 @@
             
             familyBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    familyBtns.forEach(b => {
-                        b.classList.remove('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-                        b.querySelector('i').classList.remove('text-[#4285F4]', 'dark:text-[#8ab4f8]');
-                        b.querySelector('i').classList.add('text-[#5f6368]', 'dark:text-[#9aa0a6]');
-                    });
-                    btn.classList.add('active', 'bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-                    btn.querySelector('i').classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
-                    btn.querySelector('i').classList.add('text-[#4285F4]', 'dark:text-[#8ab4f8]');
-                    
+                    familyBtns.forEach(b => b.classList.remove('is-active'));
+                    btn.classList.add('is-active');
+
                     const target = document.getElementById(btn.dataset.target);
                     familyPanels.forEach(p => p.classList.remove('active'));
                     target.classList.add('active');
                 });
             });
 
-            // Set initial family button state
-            const initialFamBtn = document.querySelector('.family-member-btn.active');
-            if(initialFamBtn) {
-                initialFamBtn.classList.add('bg-[#e8f0fe]', 'text-[#1967d2]', 'dark:bg-[#4285F4]/20', 'dark:text-[#8ab4f8]');
-                initialFamBtn.querySelector('i').classList.remove('text-[#5f6368]', 'dark:text-[#9aa0a6]');
-                initialFamBtn.querySelector('i').classList.add('text-[#4285F4]', 'dark:text-[#8ab4f8]');
-            }
+            const initialFamBtn = document.querySelector('.family-member-btn.is-active');
+            if(!initialFamBtn && familyBtns[0]) familyBtns[0].classList.add('is-active');
         });
     </script>
 </body>
